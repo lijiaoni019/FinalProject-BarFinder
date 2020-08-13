@@ -1,11 +1,21 @@
-<page-meta>
-  <navigation-bar
-    title="{{nbTitle}}"
-    loading="{{nbLoading}}"
-    front-color="{{nbFrontColor}}"
-    background-color="{{nbBackgroundColor}}"
-    color-animation-duration="2000"
-    color-animation-timing-func="easeIn"
-    
-  />
-</page-meta>
+<image src="{{bar.image.path}}" mode="aspectFill"></image>
+<view class="container"> 
+  <view class="header">{{bar.name}}</view>
+  <view class="address">{{bar.address}}</view>
+  <view class="flex-container">
+    <view>{{bar.food}}</view>
+    <view>{{bar.Price}}</view>
+    <view>{{bar.district}}</view>
+  </view>
+  <view class="description-container">
+    <view class="subheader">Description</view>
+    <view class="text">Great little Mexican join tucked away in Shuiwei with a fantastic cuban sandwich, and better drinks!</view>
+  </view>
+  <view class="rating-container">
+    <view class="subheader">Rate It!</view>
+    <view class="rating-buttoncontainer">
+      <button>Fire</button>
+      <button>Dookie</button>
+    </view>
+  </view>
+</view>  
