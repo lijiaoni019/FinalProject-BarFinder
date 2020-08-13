@@ -1,0 +1,7 @@
+<!--pages/landing/landing.wxml-->
+<view class="back">
+<view class="beatingheart">
+<view class="heart"></view>
+
+</view>
+</view>

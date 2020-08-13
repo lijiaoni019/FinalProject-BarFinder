@@ -1,0 +1,25 @@
+.tabbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color:white;
+  height:100rpx;
+  position:sticky;
+  top: 2000rpx;
+}
+
+.flex-display{
+  display: flex;
+  padding: 16px 8px;
+  align-items: flex-end;
+  background:#FD1015;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+
+}
+
+.flex-display image{
+  border-radius: 50%;
+  height: 158rpx;
+  width: 158rpx;
+  border: 2px solid white;
+}

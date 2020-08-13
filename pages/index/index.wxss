@@ -1,21 +1,63 @@
-/**index.wxss**/
-.userinfo {
+.binner{
+  
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  height: 130px;
+  justify-content: cover;
+  margin-bottom: 8px;
+}
+.binner image {
+  height: 100%;
+  width: 100%;
+} 
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 6px 6px;
+  grid-gap: 6px;
+}
+
+.card-product {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
+  border-radius: 4px;
+  padding-bottom: 4px;
+
+}
+
+.card-product image {
+  height: 210px;
+  width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.card-product h2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+}
+
+.card-product .card-product-infos {
+  padding: 0 4px;
+}
+
+.tabbar {
+  display: flex;
   align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+  justify-content: space-evenly;
+  background-color: white;
+  height: 100rpx;
+  position:sticky;
+  bottom: 0;
 }
