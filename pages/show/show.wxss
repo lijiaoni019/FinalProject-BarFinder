@@ -1,0 +1,53 @@
+image {
+  width: 100%;
+}
+
+.container {
+  padding: 0 48rpx;
+}
+
+.container .header {
+  font-size: 56rpx;
+  font-weight: bolder;
+  color: black;
+  margin: 16rpx 0;
+}
+
+.container .address {
+  font-size: 40rpx;
+  margin-top: 16rpx;
+}
+
+
+.container .subheader {
+  font-size: 40rpx;
+  font-weight: bolder;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 32rpx;
+  margin-bottom: 16rpx;
+}
+
+.description-container {
+  border-top: 1rpx solid black;
+  border-bottom: 1rpx solid black;
+  padding: 16rpx 0;
+}
+
+.rating-container {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rating-buttoncontainer{
+  margin-top: 16rpx ;
+  display: flex;
+  justify-content: space-between;
+}

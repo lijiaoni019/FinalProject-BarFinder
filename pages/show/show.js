@@ -1,67 +1,21 @@
-// pages/show/show.js
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
-      nbFrontColor: '#000000',
-      nbBackgroundColor: '#ffffff',
+
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
+  fetchBar: function (id) {
+    let Bar = new wx.BaaS.TableObject("bar");
+    Bar.get(id).then(res => {
+      console.log(res);
+      let bar = res.data;
+      this.setData({bar});
+
+    }); 
+  },
+
   onLoad: function (options) {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
+    let id = options.id;
+    this.fetchBar(id);
   }
+
 })
