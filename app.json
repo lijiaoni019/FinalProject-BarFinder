@@ -1,7 +1,9 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/landing/landing",
+    "pages/show/show",
+    "pages/user/user"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -9,6 +11,9 @@
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle":"black"
   },
+
+ 
+
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "plugins": {
