@@ -11,14 +11,24 @@
 
 <view class="binner">
   <view class="searchBar">
-             <icon tyle="search">🔍</icon>
-              <input name="input" placeholder="Search Your Bar" value="{{search.searchValue}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" name="teamSearchKeyWords" />
-              <button  catchtap="searchActiveChangeclear" form-type="reset" style="background:none;position:absolute;border:none;right:0;top:0;bottom:0;width:80rpx;">
+              <input name="input" placeholder="🔍Search Your Bar" value="{{search.searchValue}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" name="teamSearchKeyWords" />
+              <button  catchtap="searchActiveChangeclear" form-type="reset" style="background:none;border:none;width:80rpx;">
               <icon type="clear" size="19" color="#aaa" ></icon>
               </button>
       </view>
 </view>
 
+<block wx:if="{{searchBar}}">
+<view wx:for="{{searchBar}}" data-id="{{item.id}}" bindtap="searchSubmit" class="searchContainer">
+ <view class="searchCard">
+ <view style="font-weight:bolder">{{item.name}}</view>
+ <view>{{item.like}}❤{{item.dislike}}💩</view>
+ </view>
+ <view style="font-weight:lighter">{{item.address}}</view>
+</view>
+</block>
+
+<block wx:else>
 <view class="filterBar">
   <view wx:if="{{!data}}" bindtap="filterBox">Filter</view>
   <view wx:else style ="font-weight: bolder; color: red" bindtap="filterBox">Filter</view>
@@ -100,6 +110,7 @@
     </view>
   </view>
 </view>
+</block>
 
 <view class = "tabbar">
   <view style ="font-weight:bolder" bindtap="navigateToHome">HOME</view>

@@ -8,6 +8,56 @@ Page({
     option:false
   },
 
+  onLoad() {
+    const newArr = ['aaa', 'bbb', 'ccc'].filter((item, index) => {
+      return item === 'aaa'
+    })
+    console.log(newArr)
+
+    let t = setTimeout(() => {
+      console.log('11111')
+    }, 200)
+    clearTimeout(t)
+  },
+
+  searchActiveChangeinput: function(e) {
+    if (this.data.t) {
+      clearTimeout(this.data.t)
+      this.setData({
+        t: 0
+      })
+    }
+
+    let input = e.detail.value;
+    let t = setTimeout(()=>{
+    if(input!="") {
+      let inputSearch = new RegExp(input, 'i')
+      console.log(inputSearch)
+      let Bar = new wx.BaaS.TableObject("bar")
+      let query = new wx.BaaS.Query()
+      query.matches('name', inputSearch)
+      Bar.setQuery(query).orderBy(['-like']).limit(50).find().then (res => {
+        let searchBar = res.data.objects
+        this.setData({searchBar})
+        console.log(this.data)
+      })
+      } else {
+        this.setData({searchBar:null})
+      }
+     },250)
+    this.setData({
+      t
+    })
+  },
+
+  searchSubmit: function(e) {
+    console.log(e)
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `../show/show?id=${id}`,
+  })
+  },
+
   filterBox: function(){
     let sortBox = this.data.sortBox
     if(!sortBox){
@@ -159,20 +209,6 @@ Page({
 
   },
 
-  // getDataFromBaasFavorite: function () {
-  //   let id = this.data.currentUser.id
-  //   console.log(id)
-  //   let Favorite = new wx.BaaS.TableObject("favorite")
-  //   let query = new wx.BaaS.Query()
-  //   query.compare('user_id', '=', id)
-  //   Favorite.setQuery(query).orderBy(['-created_at']).find().then (res => {
-  //     console.log(res)
-  //     let favorite = res.data.objects
-  //     this.setData({favorite})
-  //     console.log(this.data)
-  //   })
-
-  // },
 
   onReachBottom:function(){
     let data = this.data.data
