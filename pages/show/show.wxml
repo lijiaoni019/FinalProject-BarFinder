@@ -4,7 +4,7 @@
   <view class="address">{{bar.address}}</view>
   <view class="flex-container">
     <view>{{bar.food}}</view>
-    <view>¥{{bar.Price}}</view>
+    <view>¥{{bar.price}}</view>
     <view>{{bar.location}}</view>
   </view>
   <view class="description-container">
@@ -14,8 +14,8 @@
   <view class="rating-container">
     <view class="subheader">Rate It!</view>
     <view class="rating-buttoncontainer">
-      <button>Fire</button>
-      <button>Dookie</button>
+      <button disabled="{{rating.dislike}}" bindtap="addDislike">Dislike</button>
+      <button disabled="{{rating.like}}" bindtap="addLike">Like</button>
     </view>
   </view>
 </view>  
