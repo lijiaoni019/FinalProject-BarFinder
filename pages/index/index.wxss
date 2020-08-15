@@ -15,8 +15,19 @@
   width: 60%;
   margin: 0 8px;
   border-radius: 4px;
-  padding:2px 4px;
+  display:flex;
+  align-items: center;
+  padding: 0 4px
+}
 
+.searchContainer{
+  padding:4px 10px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+.searchCard{
+  display:flex;
+  justify-content: space-between;
 }
 
 
