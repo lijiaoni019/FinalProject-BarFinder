@@ -34,6 +34,7 @@ image {
 }
 
 .description-container {
+  margin-top: 16rpx;
   border-top: 1rpx solid black;
   border-bottom: 1rpx solid black;
   padding: 16rpx 0;
@@ -49,5 +50,14 @@ image {
 .rating-buttoncontainer{
   margin-top: 16rpx ;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+}
+
+.rated-buttoncontainer {
+  margin-top: 16rpx ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
 }
