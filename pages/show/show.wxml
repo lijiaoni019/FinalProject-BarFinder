@@ -5,7 +5,7 @@
   <view class="flex-container">
     <view>{{bar.food}}</view>
     <view>{{bar.Price}}</view>
-    <view>{{bar.district}}</view>
+    <view>{{bar.location}}</view>
   </view>
   <view class="description-container">
     <view class="subheader">Description</view>
