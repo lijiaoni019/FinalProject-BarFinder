@@ -4,7 +4,7 @@
   <view class="address">{{bar.address}}</view>
   <view class="flex-container">
     <view>{{bar.food}}</view>
-    <view>{{bar.Price}}</view>
+    <view>¥{{bar.Price}}</view>
     <view>{{bar.location}}</view>
   </view>
   <view class="description-container">
