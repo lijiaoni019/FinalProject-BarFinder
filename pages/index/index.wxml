@@ -11,7 +11,7 @@
 
 <view class="binner">
   <view class="searchBar">
-              <input name="input" placeholder="🔍Search Your Bar" value="{{search.searchValue}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" name="teamSearchKeyWords" />
+              <input name="input" placeholder="🔍Search Your Bar" value="{{search}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" />
               <button  catchtap="searchActiveChangeclear" form-type="reset" style="background:none;border:none;width:80rpx;">
               <icon type="clear" size="19" color="#aaa" ></icon>
               </button>

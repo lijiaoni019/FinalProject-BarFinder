@@ -21,6 +21,7 @@ Page({
   },
 
   searchActiveChangeinput: function(e) {
+    console.log(e)
     if (this.data.t) {
       clearTimeout(this.data.t)
       this.setData({
@@ -48,6 +49,9 @@ Page({
     this.setData({
       t
     })
+  },
+  searchActiveChangeclear:function(){
+    this.setData({search: ''})
   },
 
   searchSubmit: function(e) {
