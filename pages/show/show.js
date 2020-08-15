@@ -1,6 +1,6 @@
 Page({
   data: {
-    rating: [],
+    rating: null,
   },
 
   fetchBar: function (id) {
@@ -9,18 +9,16 @@ Page({
       console.log(res);
       let bar = res.data;
       this.setData({bar});
-      console.log(app.globalData)
-      this.fetchRating(id);
     }); 
   },
 
-  fetchRating: function () {
-    let bar = this.data.bar;
+  fetchRating: function (bar_id) {
+    // let bar = this.data.bar;
     let Rating = new wx.BaaS.TableObject("rating");
     let query = new wx.BaaS.Query();
     
-    query.compare('user_id', '=', app.globalData.currentUser.id);
-    query.compare('bar_id', '=', bar.id)
+    query.compare('user_id', '=', this.data.user.id);
+    query.compare('bar_id', '=', bar_id)
     
     Rating.setQuery(query).find().then(res => {
       this.setData({rating: res.data.objects[0]})
@@ -41,7 +39,7 @@ Page({
         });
       }
     }); 
-    if (this.data.rating.length > 0) {
+    if (this.data.rating != null) {
       // update 
       this.updateRating(true, false);
     } else {
@@ -62,7 +60,7 @@ Page({
         });
       }
     });
-    if (this.data.rating.length > 0) {
+    if (this.data.rating != null) {
       this.updateRating(false, true);
     } else {
       this.createRating(false, true);
@@ -75,7 +73,7 @@ Page({
     rating.set('like', like);
     rating.set('dislike', dislike);
     rating.set('bar_id', this.data.bar.id);
-    rating.set('user_id', app.globalData.currentUser.id);
+    rating.set('user_id', this.data.user.id);
     rating.save().then(res => {
       console.log(res);
       this.setData({rating: [res.data]})
@@ -93,16 +91,17 @@ Page({
     })
   },
 
-  getCurrentUser: function () {
+  getCurrentUser: function (bar_id) {
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({user});
+      this.fetchRating(bar_id);
     })
   },
 
   onLoad: function (options) {
     let id = options.id;
     this.fetchBar(id);
-    this.getCurrentUser();
+    this.getCurrentUser(id);
   }
 
 })
