@@ -104,7 +104,7 @@
       </view>
 
       <view >
-      <view style = "font-size: 12px; margin-right:4px; flex-shrink:0">RMB {{item.Price}}</view>
+      <view style = "font-size: 12px; margin-right:4px; flex-shrink:0">RMB {{item.price}}</view>
       </view>
 
     </view>
