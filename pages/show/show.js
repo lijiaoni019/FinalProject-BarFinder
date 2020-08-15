@@ -1,6 +1,12 @@
 Page({
   data: {
     rating: null,
+    icons: {
+      food: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCUZVrtV7udr.svg',
+      flame: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCqBGbbpcRdO.svg',
+      dookie: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg',
+      address: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCRPo2RcE1MU.svg'
+    }
   },
 
   fetchBar: function (id) {

@@ -1,21 +1,19 @@
 <image src="{{bar.image.path}}" mode="aspectFill"></image>
 <view class="container"> 
   <view class="header">{{bar.name}}</view>
-  <view class="address">{{bar.address}}</view>
-  <view class="flex-container">
-    <view>{{bar.food}}</view>
+  <view class="info-container">{{bar.description}}</view>
+  <view class="info-container">
     <view>¥{{bar.price}}</view>
     <view>{{bar.location}}</view>
+    <view>{{bar.food}}</view>
   </view>
-  <view class="description-container">
-    <view class="subheader">The Lowdown</view>
-    <view class="text">{{bar.description}}</view>
+  <view class="info-container">
+    <image class="address-icon" src="{{icons.address}}"></image>
+  {{bar.address}}
   </view>
-  <view class="rating-container">
-    <view class="subheader">Rate It!</view>
-    <view class="rating-buttoncontainer">
-      <button disabled="{{rating.dislike}}" bindtap="addDislike">Dislike</button>
-      <button disabled="{{rating.like}}" bindtap="addLike">Like</button>
-    </view>
+  <view class="subheader">Rate It!</view>
+  <view class="rating-buttoncontainer">
+    <image class="rating-icon" bindtap="addDislike" src="{{icons.dookie}}"></image>
+    <image class="rating-icon" bindtap="addLike" src="{{icons.flame}}"></image>
   </view>
 </view>  
