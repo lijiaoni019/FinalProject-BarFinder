@@ -4,8 +4,10 @@
   justify-content: space-evenly;
   background-color:white;
   height:100rpx;
-  position:sticky;
-  top: 2000rpx;
+  position:fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
 .flex-display{

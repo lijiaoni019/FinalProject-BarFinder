@@ -10,39 +10,101 @@
 </page-meta>
 
 <view class="binner">
-<image mode="aspectFill" src="https://cloud-minapp-36449.cloud.ifanrusercontent.com/1k3aWi7iaIh5CO9m.jpg" />
+  <view class="searchBar">
+             <icon tyle="search">🔍</icon>
+              <input name="input" placeholder="Search Your Bar" value="{{search.searchValue}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" name="teamSearchKeyWords" />
+              <button  catchtap="searchActiveChangeclear" form-type="reset" style="background:none;position:absolute;border:none;right:0;top:0;bottom:0;width:80rpx;">
+              <icon type="clear" size="19" color="#aaa" ></icon>
+              </button>
+      </view>
 </view>
 
-<view class = "container">
+<view class="filterBar">
+  <view wx:if="{{!data}}" bindtap="filterBox">Filter</view>
+  <view wx:else style ="font-weight: bolder; color: red" bindtap="filterBox">Filter</view>
+  <view wx:if="{{!option}}" bindtap="sortBox">Sort</view>
+  <view wx:else style ="font-weight: bolder; color: red" bindtap="sortBox">Sort</view>
+
+</view>
+
+<block wx:if="{{filterBox}}">
+<view class="filterBox">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="section section_gap">
+      <view class="section__title">Price</view>
+      <slider max="250" name="price" show-value ></slider>
+    </view>
+    <view class="section section_gap">
+      <view class="section__title" style=" margin: 8px 0">Location</view>
+      <checkbox-group name="district" style="display: flex; width: 95%; justify-content: space-between;">
+        <label><checkbox value="南山区"/>南山区</label>
+        <label><checkbox value="福田区"/>福田区</label>
+        <label><checkbox value="罗湖区"/>罗湖区</label>
+        <label><checkbox value="宝安区"/>宝安区</label>
+      </checkbox-group>
+    </view>
+    <view class="btn-area" style="display: flex; width: 95%; margin-top: 16px">
+      <button formType="reset" style="width: 45% !important">Reset</button>
+      <button formType="submit" style="width: 45% !important">Submit</button>
+    </view>
+  </form> 
+</view>
+</block>
+
+<block wx:if ="{{sortBox}}">
+ <form bindsubmit="sortSubmit" bindreset="formReset">
+ <view class="page-section page-section-gap">
+        <view class="page-section-title" style = "padding: 8px 8px;">Sort By:</view>
+        <radio-group name="radio" style = "display: flex; padding: 0px 8px; justify-content: space-between;">
+          <label><radio value="price"/>price</label>
+          <label><radio value="popular"/>popular</label>
+        </radio-group>
+      </view>
+ <view class="btn-area" style="display: flex; width: 95%; margin: 8px auto">
+      <button formType="submit" style="width: 45% !important">Submit</button>
+    </view>
+  </form> 
+</block>
+
+
+
+
+
+<view class = "container" style ="padding-bottom: 60px;">
   <view class="card-product" wx:for ="{{bar}}">
     <image data-id="{{item.id}}"  bindtap="navigateToShowPage" mode="aspectFill" src="{{item.image.path}}" />
 
     <view style = "display: flex; align-items: flex-end; justify-content: space-between;">
     <view data-id="{{item.id}}"  bindtap="navigateToShowPage" class="card-product-infos">
-      <view><h2>{{item.name}}</h2></view>
+      <view ><h2>{{item.name}}</h2></view>
     </view>
 
-    <view style = "font-size: 12px; margin-right:4px">{{item.price}}</view>
+    
 
 
     </view>
 
-    <view style="display:flex; justify-content:space-between; align-items:flex-end; padding:0 8px; margin:4px 0">
-      <view >
-        <view style = "font-size: 10px; color:red;">😘😘😘😘😘</view>
-        <view style = "font-size: 10px; color:red;">💩💩</view>
-      </view>
+    <view style="display:flex; justify-content:space-between; align-items:center; padding:0 4px; margin:4px 0">
 
       <view bindtap = "countLike"  data-id="{{item.id}}" data-favorite="{{item.favorite}}"data-like="{{item.like}}" style ="display: flex; align-items: center;">
-        <view style = "font-size: 10px; font-weight:lighter; margin-right: 2px">{{favorite.length}}</view>
-        <view style = "color:#BF0917; font-size:24px">♥</view> 
+        <view style = "font-size: 10px; font-weight:lighter; margin-right: 2px">{{item.like }}</view>
+        <view style = "color:#BF0917; font-size:24px; margin-right: 2px">♥</view> 
+        <view style = "font-size: 10px; font-weight:lighter; margin:0 2px">{{item.poop }}</view>
+        <view style = "color:#BF0917; font-size:16px">💩</view> 
       </view>
+
+      <view >
+      <view style = "font-size: 12px; margin-right:4px; flex-shrink:0">RMB {{item.Price}}</view>
+      </view>
+
     </view>
   </view>
 </view>
 
 <view class = "tabbar">
-<view style ="font-weight:bolder" bindtap="navigateToHome">HOME</view>
-<view bindtap="navigateToUser">USER</view>
+  <view style ="font-weight:bolder" bindtap="navigateToHome">HOME</view>
+  <view bindtap="navigateToUser">USER</view>
 </view>
+
+
 
