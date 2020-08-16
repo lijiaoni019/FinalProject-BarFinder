@@ -26,7 +26,7 @@ style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 1
   <view class="filter-container">
     <view class="filter">¥{{bar.price}}</view>
     <view class="filter">{{bar.location}}</view>
-    <view>{{bar.food}}</view>
+    <image class="food-icon" src="{{icons.food}}"></image>
   </view>
   <view class="address-container">
     <image class="address-icon" src="{{icons.address}}"></image>

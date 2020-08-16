@@ -50,7 +50,7 @@
 
 .meter-container .count {
   margin-left: 32rpx;
-  flex-shrink: 0;dd
+  flex-shrink: 0;
 }
 
 .filter-container {
@@ -58,6 +58,11 @@
   align-items: center;
   padding: 16px 0;
   border-bottom: 1px solid rgba(231, 48, 91, 0.4);
+}
+
+.filter-container .food-icon {
+  width: 80rpx;
+  height: 80rpx;
 }
 
 .filter {
