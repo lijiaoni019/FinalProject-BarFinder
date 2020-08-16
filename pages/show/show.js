@@ -114,6 +114,14 @@ Page({
     })
   },
 
+  onShareAppMessage: function () {
+    let bar = this.data.bar;
+    return {
+      title: bar.name,
+      path: `/pages/show/show?id=${bar.id}`
+    }
+  },
+
   onLoad: function (options) {
     let id = options.id;
     this.fetchBar(id);

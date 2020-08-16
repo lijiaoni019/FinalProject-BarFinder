@@ -50,7 +50,7 @@
 
 .meter-container .count {
   margin-left: 32rpx;
-  flex-shrink: 0;
+  flex-shrink: 0;dd
 }
 
 .filter-container {
@@ -145,7 +145,7 @@
 }
 
 .share-btn {
-  width: 100%;
+  width: 100% !important;
   height: 96rpx;
   border: 1px solid #E7305B;
   background: white;
