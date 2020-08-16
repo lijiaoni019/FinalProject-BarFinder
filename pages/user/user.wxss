@@ -2,26 +2,63 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color:white;
-  height:100rpx;
+  background-color:#E7305B;
+  height:120rpx;
   position:fixed;
   bottom: 0;
   width: 100%;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
-.flex-display{
-  display: flex;
-  padding: 16px 8px;
-  align-items: flex-end;
-  background:#FD1015;
-  box-shadow: 0 0 2px rgba(0,0,0,0.1);
-
+.tabbar-icon {
+  width: 72rpx;
 }
 
-.flex-display image{
+.header{
+  display: flex;
+  padding: 16px 8px;
+  height: 150rpx;
+  align-items: center;
+  justify-content: center;
+  background:#E7305B;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+
+.header image{
+  display: flex;
+  padding-top: 16rpx;
+  height: 200rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-user image{
   border-radius: 50%;
-  height: 158rpx;
-  width: 158rpx;
-  border: 2px solid white;
+  height: 200rpx;
+  width: 200rpx;
+  margin-top: 50rpx;
+}
+
+.flex-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nickname {
+  font-size: 40rpx;
+  margin: 16rpx 0rpx;
+}
+
+.flex-select{
+  display: flex;
+  margin-top: 32rpx;
+  justify-content: center;
+}
+
+.vertical-bar{
+  border-left: 5rpx solid #E7305B;
+  height: 48rpx;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
 }

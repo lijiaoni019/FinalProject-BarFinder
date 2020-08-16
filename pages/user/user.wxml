@@ -1,10 +1,21 @@
 <block wx:if="{{user}}">
 <block wx:if="{{currentUser}}">
-  <view class ="flex-display">
-  <image src="{{currentUser.avatar}}" />
-  <view style="color: white">{{currentUser.nickname}}</view>
-  </view> 
-  <button bindtap="userLogout" style="margin: 16rpx auto; background-color: #07C160" type="primary" >Log Out</button>
+  <view class ="header">
+  <image src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg" />
+  </view>
+  <view class  ="flex-user">
+    <image mode ="aspectFill" src="{{currentUser.avatar}}" />
+    <view class ="nickname" style="color: #1C1818">{{currentUser.nickname}}</view>
+    <button bindtap="userLogout" style="margin: 16rpx auto; background-color: #E7305B" type="primary" >Log Out</button>
+  </view>
+
+  <view class="flex-select">
+    <view>My Favorites</view>
+    <view class="vertical-bar"></view>
+    <view>My Dookies</view>
+  </view>
+
+
 </block>
 
 <block wx:else>
@@ -18,6 +29,11 @@
 
 
 <view class = "tabbar">
-<view  bindtap="navigateToHome">HOME</view>
-<view style ="font-weight:bolder">USER</view>
+<view  bindtap="navigateToHome">
+<image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCXip4eTEspg.svg"></image>
+</view>
+<view  bindtap="navigateToTinder">
+<image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCD3bUfflStC.svg"></image>
+</view>
+<image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC0fdcBFElhU.svg"></image>
 </view>
