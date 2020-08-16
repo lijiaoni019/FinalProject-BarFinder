@@ -1,11 +1,10 @@
-// pages/user/user.js
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
-
+    icons: {
+      dookie: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWClb08aGBJWA.svg',
+      flame: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCZxqPWt8PqG.svg'
+    },
+    saved: [{id: '5f364a216526326e9641b358', name: 'Brass House', image: {path: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6UhfyA8TkJCnR0.jpg'}, likes: 378, dislikes: 78, saved: true}]
   },
 
   navigateToHome: function () {
@@ -18,88 +17,34 @@ Page({
     let currentUser = wx.getStorageSync('currentUser')
     if (currentUser){
       this.setData({currentUser})
-      this.setData({user:true})
-    }else {
-      this.setData({user:true})
+      this.setData({user: true})
+    } else {
+      this.setData({user: true})
     }
-
-
   },
 
   userLogin: function (data) {
     wx.BaaS.auth.loginWithWechat(data).then(currentUser => {
-    currentUser = currentUser.toJSON()
-    this.setData({currentUser})
-    wx.setStorageSync('currentUser',currentUser)
+      currentUser = currentUser.toJSON();
+      this.setData({currentUser});
+      wx.setStorageSync('currentUser',currentUser);
     }, err => {
      wx.showModal({
        cancelColor: 'cancelColor',
-       title: 'Authorization Needed for Access',
-       
+       title: 'Authorization Needed for Access',  
      })
- })
+    })
+  },
 
-},
-
-userLogout: function () {
-  wx.BaaS.auth.logout().then(res => {
-    wx.setStorageSync('currentUser', null);
-    this.setData({currentUser: null});
-  });
-}, 
-
+  userLogout: function () {
+    wx.BaaS.auth.logout().then(res => {
+      wx.setStorageSync('currentUser', null);
+      this.setData({currentUser: null});
+    });
+  }, 
 
   onLoad: function (options) {
     this.checkCurrentUser()
-
-  },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
 
   }
 })
