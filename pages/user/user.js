@@ -7,6 +7,16 @@ Page({
     saved: [{id: '5f364a216526326e9641b358', name: 'Brass House', image: {path: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6UhfyA8TkJCnR0.jpg'}, likes: 378, dislikes: 78, saved: true}]
   },
 
+  setMeterLength: function () {
+    let bar = this.data.bar;
+    let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+
+    bar['likeMeter'] = bar.like / denominator * 100;
+    bar['dislikeMeter'] = bar.dislike / denominator * 100;
+
+    this.setData({bar})
+  },
+
   navigateToHome: function () {
     wx.navigateTo({
       url: "../index/index"
@@ -41,10 +51,13 @@ Page({
       wx.setStorageSync('currentUser', null);
       this.setData({currentUser: null});
     });
-  }, 
+  },
+
+
+
+  
 
   onLoad: function (options) {
-    this.checkCurrentUser()
-
+    this.checkCurrentUser();
   }
 })

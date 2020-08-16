@@ -64,14 +64,33 @@ page {
   font-size: 32rpx;
 }
 
-.ratings-container{
+.rating-container{
   display: flex;
   flex-direction: column;
-  margin-top: 200rpx;
+  margin-top: 172rpx;
 }
 
-.meter-icon {
-height: 48rpx;
-width: 48rpx;
-padding: 16rpx 0;
+.rating-container .flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.rating-container .dynamic-bar {
+  height: 24rpx;
+  width: 400rpx;
+  border-radius: 80rpx;
+  margin-left: 48rpx;
+}
+
+.rating-container .meter-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 12rpx 0;
+}
+
+.rating-container .count {
+  margin-left: 32rpx;
+  color: white;
+  font-weight: bolder;
+  flex-shrink: 0;
 }
