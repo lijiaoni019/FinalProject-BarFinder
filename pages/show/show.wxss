@@ -50,7 +50,7 @@
 
 .meter-container .count {
   margin-left: 32rpx;
-  flex-shrink: 0;dd
+  flex-shrink: 0;
 }
 
 .filter-container {
