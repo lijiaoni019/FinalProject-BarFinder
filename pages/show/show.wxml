@@ -1,19 +1,47 @@
-<image src="{{bar.image.path}}" mode="aspectFill"></image>
+<view 
+style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 100%), url({{bar.image.path}});" class="showBannerImg">
+  <view class="save-btn">Save</view>
+</view>
 <view class="container"> 
   <view class="header">{{bar.name}}</view>
-  <view class="info-container">{{bar.description}}</view>
-  <view class="info-container">
-    <view>¥{{bar.price}}</view>
-    <view>{{bar.location}}</view>
+  <view class="meter-container">
+    <view class="flex-container">
+      <view class="flex-container" style="flex-grow: 1;">
+        <image class="meter-icon" src="{{icons.dookie}}"/>
+        <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277"/>
+      </view>
+      <view class="count">{{bar.dislike}}</view>
+    </view>
+    <view class="flex-container">
+      <view class="flex-container" style="flex-grow: 1;">
+        <image class="meter-icon" src="{{icons.flame}}"/>
+        <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
+      </view>
+      <view class="count">{{bar.like}}</view>
+    </view>
+    
+    
+  </view>
+  <view class="description-container">{{bar.description}}</view>
+  <view class="filter-container">
+    <view class="filter">¥{{bar.price}}</view>
+    <view class="filter">{{bar.location}}</view>
     <view>{{bar.food}}</view>
   </view>
-  <view class="info-container">
+  <view class="address-container">
     <image class="address-icon" src="{{icons.address}}"></image>
   {{bar.address}}
   </view>
-  <view class="subheader">Rate It!</view>
-  <view class="rating-buttoncontainer">
-    <image class="rating-icon" bindtap="addDislike" src="{{icons.dookie}}"></image>
-    <image class="rating-icon" bindtap="addLike" src="{{icons.flame}}"></image>
+  <view class="subheader">Rate Us</view>
+  <view class="rating-container">
+    <view class="rating-buttoncontainer" bindtap="addDislike">
+      <image class="rating-icon" src="{{icons.dookie}}"></image>
+    </view>
+    <view class="rating-buttoncontainer" bindtap="addLike">
+      <image class="rating-icon" src="{{icons.flame}}"></image>
+    </view>
+  </view>
+  <view class="share-container">
+    <button class="share-btn" open-type="share">Share</button>
   </view>
 </view>  
