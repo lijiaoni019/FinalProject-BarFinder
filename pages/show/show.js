@@ -5,17 +5,27 @@ Page({
       food: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCUZVrtV7udr.svg',
       flame: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCqBGbbpcRdO.svg',
       dookie: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg',
-      address: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCRPo2RcE1MU.svg'
+      address: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCRPo2RcE1MU.svg',
     }
   },
 
   fetchBar: function (id) {
     let Bar = new wx.BaaS.TableObject("bar");
     Bar.get(id).then(res => {
-      console.log(res);
       let bar = res.data;
       this.setData({bar});
+      this.setMeterLength();
     }); 
+  },
+
+  setMeterLength: function () {
+    let bar = this.data.bar;
+    let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+
+    bar['likeMeter'] = bar.like / denominator * 100;
+    bar['dislikeMeter'] = bar.dislike / denominator * 100;
+
+    this.setData({bar})
   },
 
   fetchRating: function (bar_id) {
