@@ -1,15 +1,31 @@
 Page({
   data: {
     rating: null,
+    icons: {
+      food: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k7FEcDhaUgk1hcS.svg',
+      flame: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCqBGbbpcRdO.svg',
+      dookie: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg',
+      address: 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCRPo2RcE1MU.svg',
+    }
   },
 
   fetchBar: function (id) {
     let Bar = new wx.BaaS.TableObject("bar");
     Bar.get(id).then(res => {
-      console.log(res);
       let bar = res.data;
       this.setData({bar});
+      this.setMeterLength();
     }); 
+  },
+
+  setMeterLength: function () {
+    let bar = this.data.bar;
+    let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+
+    bar['likeMeter'] = bar.like / denominator * 100;
+    bar['dislikeMeter'] = bar.dislike / denominator * 100;
+
+    this.setData({bar})
   },
 
   fetchRating: function (bar_id) {
@@ -95,6 +111,58 @@ Page({
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({user});
       this.fetchRating(bar_id);
+      this.fetchFavorite(bar_id, user.id);
+    })
+  },
+
+  onShareAppMessage: function () {
+    let bar = this.data.bar;
+    return {
+      title: bar.name,
+      path: `/pages/show/show?id=${bar.id}`
+    }
+  },
+
+  toggleFavorite: function () {
+    let Favorite = new wx.BaaS.TableObject("favorite")
+    if (this.data.favorite) {
+      Favorite.delete(this.data.favorite.id).then(res => {
+        console.log(res);
+        if (res.statusCode == 204 ) {
+          this.setData({favorite: null});
+          wx.showToast({
+            title: 'Unsaved',
+            duration: 1000,
+          });
+        }
+      })
+    } else {
+      let favorite = Favorite.create();
+      let bar_id = this.data.bar.id;
+      let user_id = this.data.user.id;
+      favorite.set('bar_id', bar_id);
+      favorite.set('user_id', user_id);
+      favorite.save().then(res => {
+        if (res.statusCode == 201 ) {
+          this.setData({favorite: res.data});
+          wx.showToast({
+            title: 'Saved',
+            duration: 1000,
+          });
+        }
+      })
+    }
+
+    
+  },
+
+  fetchFavorite: function (bar_id, user_id) {
+    let Favorite = new wx.BaaS.TableObject("favorite");
+    let query = new wx.BaaS.Query();
+    query.compare('bar_id', '=', bar_id);
+    query.compare('user_id', '=', user_id);
+    Favorite.setQuery(query).find().then(res => {
+      this.setData({favorite: res.data.objects[0]});
     })
   },
 

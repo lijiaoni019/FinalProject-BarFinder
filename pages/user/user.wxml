@@ -1,23 +1,56 @@
 <block wx:if="{{user}}">
-<block wx:if="{{currentUser}}">
-  <view class ="flex-display">
-  <image src="{{currentUser.avatar}}" />
-  <view style="color: white">{{currentUser.nickname}}</view>
-  </view> 
-  <button bindtap="userLogout" style="margin: 16rpx auto; background-color: #07C160" type="primary" >Log Out</button>
+  <!-- Header -->
+  <view class="header">
+    <image class="avatar" mode="aspectFill" src="{{currentUser.avatar}}"/>
+  </view>
+
+  <view class="container">
+    
+    <!-- Saved Bars List -->
+    <view class="saved-container">
+      
+      <view class="title">My Saved Bars</view>
+      
+      <view wx:for="{{saved}}" class="card-bar" style="background: linear-gradient(105deg, #1C1818 0%, rgba(40, 36, 36, 0) 100%), url({{item.image.path}})">
+        <view class="name">{{item.name}}</view>
+        <view class="btn">Saved</view>
+        <view class="rating-container">
+          <view class="flex-container">
+            <view class="flex-container" style="flex-grow: 1;">
+              <image class="meter-icon" src="{{icons.dookie}}"></image>
+              <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277">
+              </view>
+              <view class="count">56</view>
+            </view>
+          </view>
+          <view class="flex-container">
+            <view class="flex-container" style="flex-grow: 1;">
+              <image class="meter-icon" src="{{icons.flame}}"/>
+              <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
+              </view>
+              <view class="count">234</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
 </block>
 
 <block wx:else>
-<view style="display: flex;  flex-direction: column; margin-bottom: 40px; padding-top: 100px ; align-items: center; background: white;box-shadow: 0 0 16px rgba(0,0,0,0.1);">
-<image style = " border-radius:50%; height:200rpx; width:200rpx;" src="https://cloud-minapp-36449.cloud.ifanrusercontent.com/1k1MAKa16rZgvAXO.jpg" />
-<view style="margin: 16px 0">用户登录</view>
-</view>
-<button open-type="getUserInfo" bindgetuserinfo="userLogin" style="margin: 16rpx auto; background-color: #07C160" type="primary" >LOG IN</button> 
-</block>
+  <view style="display: flex;  flex-direction: column; margin-bottom: 40px; padding-top: 100px ; align-items: center; background: white;box-shadow: 0 0 16px rgba(0,0,0,0.1);">
+    <image style = " border-radius:50%; height:200rpx; width:200rpx;" src="https://cloud-minapp-36449.cloud.ifanrusercontent.com/1k1MAKa16rZgvAXO.jpg" />
+    <view style="margin: 16px 0">用户登录</view>
+  </view>
+  <button open-type="getUserInfo" bindgetuserinfo="userLogin" style="margin: 16rpx auto; background-color: #07C160" type="primary" >LOG IN</button> 
 </block>
 
 
-<view class = "tabbar">
-<view  bindtap="navigateToHome">HOME</view>
-<view style ="font-weight:bolder">USER</view>
-</view>
+<!-- <view class = "tabbar">
+  <view  bindtap="navigateToHome">
+    <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCXip4eTEspg.svg"></image>
+  </view>
+  <view  bindtap="navigateToTinder">
+    <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCD3bUfflStC.svg"></image>
+  </view>
+  <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC0fdcBFElhU.svg"></image>
+</view> -->

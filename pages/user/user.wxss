@@ -1,27 +1,96 @@
-.tabbar {
+page {
+  background: #FDFDFD;
+}
+
+.container{
+  padding: 0 32rpx;
+}
+
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  background-color:white;
-  height:100rpx;
-  position:fixed;
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  justify-content: center;
+  background:#E7305B;
 }
 
-.flex-display{
-  display: flex;
-  padding: 16px 8px;
-  align-items: flex-end;
-  background:#FD1015;
+.header image {
+  margin: 32rpx 0;
+  height: 200rpx;
   box-shadow: 0 0 2px rgba(0,0,0,0.1);
-
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 50%;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.25);
 }
 
-.flex-display image{
-  border-radius: 50%;
-  height: 158rpx;
-  width: 158rpx;
-  border: 2px solid white;
+.title {
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: 40rpx;
+  width: 50%;
+  margin: 0 auto;
+  color: #E7305B;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E7305B;
+}
+
+.card-bar {
+  height: 400rpx;
+  margin: 32rpx 0;
+  padding: 32rpx;
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.card-bar .name {
+  color: white;
+  font-size: 48rpx;
+  font-weight: bolder;
+}
+
+.card-bar .btn {
+  position: absolute;
+  top: 32rpx;
+  right: 32rpx;
+  padding: 16rpx;
+  color: white;
+  background: #E7305B;
+  border-radius: 4px;
+  width: 124rpx;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.rating-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 172rpx;
+}
+
+.rating-container .flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.rating-container .dynamic-bar {
+  height: 24rpx;
+  width: 400rpx;
+  border-radius: 80rpx;
+  margin-left: 48rpx;
+}
+
+.rating-container .meter-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 12rpx 0;
+}
+
+.rating-container .count {
+  margin-left: 32rpx;
+  color: white;
+  font-weight: bolder;
+  flex-shrink: 0;
 }
