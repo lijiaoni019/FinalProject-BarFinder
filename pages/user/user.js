@@ -19,6 +19,7 @@ Page({
     if (currentUser){
       this.setData({currentUser})
       this.setData({user:true})
+      this.fetchFavorites()
     }else {
       this.setData({user:true})
     }

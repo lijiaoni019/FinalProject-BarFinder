@@ -8,14 +8,20 @@ Page({
 
   }, 
 
+  navigateToIndexPage: function(){
+    wx.redirectTo({
+         url: '../index/index',
+      })
+  },
+
  
   onLoad: function (options) {
 
-    setTimeout(function(){
-      wx.navigateTo({
-        url: '../index/index',
-      })
-    },3000)
+    // setTimeout(function(){
+    //   wx.navigateTo({
+    //     url: '../index/index',
+    //   })
+    // },3000)
 
   },
 
