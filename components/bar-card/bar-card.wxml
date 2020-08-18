@@ -1,0 +1,26 @@
+<view class="card-bar" style="background: linear-gradient(105deg, #1C1818 0%, rgba(40, 36, 36, 0) 100%), url({{bar.image.path}})">
+  
+  <view class="name">{{bar.name}}</view>
+  
+  <view class="btn">Saved</view>
+  
+  <view class="rating-container">
+    
+    <view class="flex-container">
+      <view class="flex-container" style="flex-grow: 1;">
+        <image class="meter-icon" src="{{icons.dookie}}"></image>
+        <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277">
+        </view>
+        <view class="count">{{bar.dislike}}</view>
+      </view>
+    </view>
+
+    <view class="flex-container">
+      <view class="flex-container" style="flex-grow: 1;">
+        <image class="meter-icon" src="{{icons.flame}}"/>
+        <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
+        <view class="count">{{bar.like}}</view>
+      </view>
+    </view>
+  </view>
+</view>
