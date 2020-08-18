@@ -100,7 +100,7 @@
   justify-content: space-between;
 }
 
-.rating-buttoncontainer{
+.rating-btn-container{
   width: 320rpx;
   height: 96rpx;
   border: 1px solid #E7305B;
@@ -112,11 +112,19 @@
   justify-content: center;
 }
 
-.active-ratingbtn {
+.active-rating-btn {
+  width: 320rpx;
+  height: 96rpx;
+  border: 1px solid #E7305B;
   background: #E7305B;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.rating-buttoncontainer .rating-icon {
+.rating-icon {
   width: 72rpx;
   height: 72rpx;
 }
