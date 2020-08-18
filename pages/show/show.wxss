@@ -136,10 +136,20 @@
   color: #FFC7C7;
 }
 
-.active-savebtn {
+.active-save-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 136rpx;
+  height: 48rpx;
+  font-size: 24rpx;
   background: #E7305B;
   color: white;
   border: 1px solid #E7305B;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .share-container {

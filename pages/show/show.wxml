@@ -1,6 +1,6 @@
 <view 
 style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 100%), url({{bar.image.path}});" class="showBannerImg">
-  <view class="save-btn">Save</view>
+  <view bindtap="toggleFavorite" class="{{favorite ? 'active-save-btn' : 'save-btn'}}">Save</view>
 </view>
 <view class="container"> 
   <view class="header">{{bar.name}}</view>
@@ -26,7 +26,7 @@ style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 1
   <view class="filter-container">
     <view class="filter">¥{{bar.price}}</view>
     <view class="filter">{{bar.location}}</view>
-    <image class="food-icon" src="{{icons.food}}"></image>
+    <image wx:if="{{bar.food}}" class="food-icon" src="{{icons.food}}"></image>
   </view>
   <view class="address-container">
     <image class="address-icon" src="{{icons.address}}"></image>
