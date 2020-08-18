@@ -7,20 +7,18 @@ style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 1
   <view class="meter-container">
     <view class="flex-container">
       <view class="flex-container" style="flex-grow: 1;">
-        <image class="meter-icon" src="{{icons.dookie}}"/>
-        <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277"/>
-      </view>
-      <view class="count">{{bar.dislike}}</view>
-    </view>
-    <view class="flex-container">
-      <view class="flex-container" style="flex-grow: 1;">
         <image class="meter-icon" src="{{icons.flame}}"/>
         <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
       </view>
       <view class="count">{{bar.like}}</view>
     </view>
-    
-    
+    <view class="flex-container">
+      <view class="flex-container" style="flex-grow: 1;">
+        <image class="meter-icon" src="{{icons.dookie}}"/>
+        <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277"/>
+      </view>
+      <view class="count">{{bar.dislike}}</view>
+    </view>  
   </view>
   <view class="description-container">{{bar.description}}</view>
   <view class="filter-container">
@@ -34,10 +32,10 @@ style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 1
   </view>
   <view class="subheader">Rate Us</view>
   <view class="rating-container">
-    <view class="rating-buttoncontainer" bindtap="addDislike">
+    <view class="{{rating.dislike ? 'active-rating-btn' : 'rating-btn-container'}}" bindtap="addDislike">
       <image class="rating-icon" src="{{icons.dookie}}"></image>
     </view>
-    <view class="rating-buttoncontainer" bindtap="addLike">
+    <view class="{{rating.like ? 'active-rating-btn' : 'rating-btn-container'}}" bindtap="addLike">
       <image class="rating-icon" src="{{icons.flame}}"></image>
     </view>
   </view>

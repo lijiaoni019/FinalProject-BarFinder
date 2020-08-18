@@ -28,23 +28,27 @@ Page({
     this.setData({bar})
   },
 
-  fetchRating: function (bar_id) {
-    // let bar = this.data.bar;
-    let Rating = new wx.BaaS.TableObject("rating");
-    let query = new wx.BaaS.Query();
+
+  toggleLike: function () {
+    let Bar = new wx.BaaS.TableObject("bar");
+    let bar = Bar.getWithoutData(this.data.bar.id);
     
-    query.compare('user_id', '=', this.data.user.id);
-    query.compare('bar_id', '=', bar_id)
-    
-    Rating.setQuery(query).find().then(res => {
-      this.setData({rating: res.data.objects[0]})
-    })
+    let newLike = this.data.bar.like + 1;
   },
 
   addLike: function () {
     let Bar = new wx.BaaS.TableObject("bar");
     let bar = Bar.getWithoutData(this.data.bar.id);
+    
     let newLike = this.data.bar.like + 1;
+    if (this.data.rating) {
+      if (this.data.rating.like) {
+        newLike = this.data.bar.like - 1;
+      } else {
+        newLike = this.data.bar.dislike + 1;
+      }
+    }
+
     bar.set('like', newLike);
     bar.update().then(res => {
       console.log(res);
@@ -53,11 +57,11 @@ Page({
           title: 'Liked',
           duration: 1000,
         });
+        this.fetchBar(this.data.bar.id);
       }
     }); 
-    if (this.data.rating != null) {
-      // update 
-      this.updateRating(true, false);
+    if (this.data.rating != null && !this.data.rating.like != this.data.rating.dislike || this.data.rating.like) {
+      this.updateRating(!this.data.rating.like, this.data.rating.dislike);
     } else {
       this.createRating(true, false);
     }
@@ -66,7 +70,16 @@ Page({
   addDislike: function () {
     let Bar = new wx.BaaS.TableObject("bar");
     let bar = Bar.getWithoutData(this.data.bar.id);
+
     let newDislike = this.data.bar.dislike + 1;
+    if (this.data.rating) {
+      if (this.data.rating.dislike) {
+        newDislike = this.data.bar.dislike - 1;
+      } else {
+        newDislike = this.data.bar.dislike + 1;
+      }
+    }
+
     bar.set('dislike', newDislike);
     bar.update().then(res => {
       if (res.statusCode == 200 ) {
@@ -74,10 +87,11 @@ Page({
           title: 'Disliked',
           duration: 1000,
         });
+        this.fetchBar(this.data.bar.id);
       }
     });
-    if (this.data.rating != null) {
-      this.updateRating(false, true);
+    if (this.data.rating != null && this.data.rating.like != !this.data.rating.dislike || this.data.rating.dislike) {
+      this.updateRating(this.data.rating.like, !this.data.rating.dislike);
     } else {
       this.createRating(false, true);
     }
@@ -92,26 +106,26 @@ Page({
     rating.set('user_id', this.data.user.id);
     rating.save().then(res => {
       console.log(res);
-      this.setData({rating: [res.data]})
+      this.setData({rating: res.data})
     })
   },
 
   updateRating: function (like, dislike) {
     let Rating = new wx.BaaS.TableObject("rating")
-    let rating = Rating.getWithoutData(this.data.rating[0].id)
-     console.log(this.data.rating[0].id);
+    let rating = Rating.getWithoutData(this.data.rating.id)
+     console.log(this.data.rating.id);
     rating.set('like', like);
     rating.set('dislike', dislike);
     rating.update().then(res => {
-      console.log(res);
+      this.setData({ rating: res.data });
     })
   },
 
   getCurrentUser: function (bar_id) {
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({user});
-      this.fetchRating(bar_id);
       this.fetchFavorite(bar_id, user.id);
+      this.fetchRating(bar_id, user.id)
     })
   },
 
@@ -163,6 +177,16 @@ Page({
     query.compare('user_id', '=', user_id);
     Favorite.setQuery(query).find().then(res => {
       this.setData({favorite: res.data.objects[0]});
+    })
+  },
+
+  fetchRating: function (bar_id, user_id) {
+    let Rating = new wx.BaaS.TableObject("rating");
+    let query = new wx.BaaS.Query();
+    query.compare('bar_id', '=', bar_id);
+    query.compare('user_id', '=', user_id);
+    Rating.setQuery(query).find().then(res => {
+      this.setData({rating: res.data.objects[0]});
     })
   },
 
