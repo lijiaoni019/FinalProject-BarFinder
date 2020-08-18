@@ -1,8 +1,8 @@
 <!--pages/landing/landing.wxml-->
 <view class="back">
   <view style="padding-bottom: 320rpx; padding-top: 240rpx;background-color: #E7305B; display:flex; flex-direction:column; align-items:center">
-  <image style="height: 200px;width:170px;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg"></image>
-  <text style="font-size:80rpx; font-weight: bolder; color:white">BAR嘛</text>
+    <image style="height: 200px;width:170px;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg"></image>
+    <text style="font-size:80rpx; font-weight: bolder; color:white">BAR嘛</text>
   </view>
   <view class="beatingheart" bindtap="navigateToIndexPage">
   <view class="heart"></view>

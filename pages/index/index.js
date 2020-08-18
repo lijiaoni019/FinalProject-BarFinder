@@ -1,5 +1,6 @@
 Page({
   data:{
+    toggleSearch: true,
     filterInfo:[],
     favoriteBarId:[],
     barId:[],
@@ -16,18 +17,80 @@ Page({
     loading1: false,
     loading2:false,
     opacity:1,
-    
-    // background: ['https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6UhkrbEQzd9vXT.jpg', 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6UhceximdF3L5Q.jpg', 'https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6UhceximdF3L5Q.jpg'],
-    // indicatorDots: true,
-    // vertical: false,
-    // autoplay: true,
-    // circular: true,
-    // interval: 2000,
-    // duration: 500,
-    // previousMargin: 0,
-    // nextMargin: 0
+    show: 'sort',
+    sort: 'undefined',
+    filter: {
+      location: {
+        index: undefined,
+        choices: ['Nanshan', 'Futian', 'Luohu', 'BaoAn']
+      },
+      price: {
+        index: undefined,
+        choices: ['0 ~ 99', '100 ~ 199', '200 ~ 299', '299 +']
+      }
+    },
+
   },
 
+  queryFilters: function () {
+    let location = this.data.filter.location.choices[this.data.filter.location.index];
+    let price = this.data.filter.price.choices[this.data.filter.price.index];
+    let sortType = this.data.sort;
+    let min, max;
+
+    // --- Clean up data --- //
+    if (location === 'Nanshan') {location = '南山区'};
+    if (location === 'BaoAn') {location = '宝安区'};
+    if (location === 'Futian') {location = '福田区'};
+    if (location === 'Luohu') {location = '罗湖区'};
+
+    if (price) { min = Number.parseInt(price.split(' ')[0]) };
+    if (price) { max = Number.parseInt(price.split(' ')[2]) };
+
+    // --- Set up BaaS --- //
+    let Bar = new wx.BaaS.TableObject("bar");
+    let query = new wx.BaaS.Query();
+
+    // --- Queries --- //
+    if (location) query.compare('location', '=', location);
+    if (price) query.compare('price', '>=', min);
+    if (price && max) query.compare('price', '<=', max);
+
+    // --- Sort and Fetch--- //
+    if (sortType) {
+      Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
+        let bar = res.data.objects;
+        this.setData({bar});
+      })
+    } else {
+      Bar.setQuery(query).limit(50).find().then (res => {
+        let bar = res.data.objects;
+        this.setData({bar});
+      })
+    }
+  },
+
+  bindFilterChange: function (e) {
+    let index = e.detail.value;
+    let type = e.currentTarget.dataset.type;
+    const filterIndex = `filter.${type}.index`
+
+    this.setData({ [filterIndex]: index });
+    this.queryFilters();
+  },
+
+  toggleFilter: function (e) {
+    console.log(e);
+    let type = e.currentTarget.dataset.type;
+    this.setData({show: type})
+  },
+
+  toggleSort: function (e) {
+    let type = e.currentTarget.dataset.type;
+
+    this.setData({sort: type})
+    this.queryFilters();
+  },
 
   searchActiveChangeinput: function(e) {
     this.setData({clear:true})

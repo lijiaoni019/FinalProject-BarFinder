@@ -9,60 +9,59 @@
   />
 </page-meta>
 
-
-<view class="banner" bindtap="hideFilterSort">
-<image style="height: 87.58px;width:70.31px;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg"></image>
-
-<view style = "background-color: #E7305B; padding:8px">
-  <view class="searchBar" style="width:400rpx;">
-    <view>🔍</view>
-    <input style="background-color: white; margin-left:4px" name="input" placeholder="Search" value="{{search}}" bindblur="searchBlur"  bindbfocus="searchfocus" bindinput="searchActiveChangeinput"  />
-    <button  wx:if="{{clear}}" catchtap="searchActiveChangeclear" form-type="reset" style="background:none;border:none;width:80rpx; position:relative; left:10rpx">
-    <icon type="clear" size="19" color="#aaa" ></icon>
-    </button>
+<!-- Banner -->
+<view class="banner">
+  <image class="logo" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg"></image>
+  <view class="icon-container" style="right: 32rpx;" bindtap="toggleFilter"  data-type="search">
+    <image class="icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"></image>
   </view>
+  <view class="icon-container" bindtap="toggleFilter" data-type="sort" style="left: 32rpx;">
+    <image class="icon"  src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCKIIb8YBB3N.svg"></image>
+  </view>
+</view> 
 
-</view>
-      <!-- <swiper 
-        indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
-        interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
-        <block wx:for="{{background}}" wx:key="*this">
-          <swiper-item>
-            <image src="{{item}}"></image> 
-          </swiper-item>
-        </block>
-      </swiper> -->
-
-      
+<!-- Search Bar -->
+<view wx:if="{{show === 'search'}}" class="container-search">
+  <view class="bar">
+    <image class="icon" fill="#E7305B" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"/>
+    <input class="input" name="input" placeholder="Search" value="{{search}}" bindblur="searchBlur"  bindbfocus="searchfocus" bindinput="searchActiveChangeinput"/>
+  </view>
 </view>
 
+<!-- Sort Container -->
+<view wx:if="{{show === 'sort'}}" class="container-sort">
+  <button class="btn-sort {{sort === 'like' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="like">POPULARITY</button>
+  <button class="btn-sort {{sort === 'price' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="price">PRICE</button>
+</view>
 
+<!-- Filter Container -->
+<view class="container-filter">
+  <picker data-type="location" class="text" bindchange="bindFilterChange" value="{{filter.location.index}}" range="{{filter.location.choices}}">
+      {{filter.location.choices[filter.location.index] || 'LOCATION'}}
+  </picker>
+  <view>|</view>
+  <picker data-type="price" class="text" bindchange="bindFilterChange" value="{{filter.price.index}}" range="{{filter.price.choices}}">
+    {{filter.price.choices[filter.price.index] || 'PRICE'}}
+  </picker>
+</view>
 
-<block wx:if="{{searchBar}}">
+<!-- <block wx:if="{{searchBar}}">
   <view wx:for="{{searchBar}}" data-id="{{item.id}}" bindtap="searchSubmit" class="searchContainer">
-  <view class="searchCard">
-  <view style="font-weight:bolder">{{item.name}}</view>
+    <view class="searchCard">
+    <view style="font-weight:bolder">{{item.name}}</view>
 
-  <view style ="display: flex; align-items:center">
-  <text>{{item.like}}</text>
-  <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC4tDzTSPlXQ.svg"></image>
-  <text>{{item.dislike}}</text>
-  <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg"></image>
-  </view>
-
+    <view style ="display: flex; align-items:center">
+      <text>{{item.like}}</text>
+      <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC4tDzTSPlXQ.svg"></image>
+      <text>{{item.dislike}}</text>
+      <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg"></image>
+    </view>
   </view>
   <view style="font-weight:lighter; font-size: 24rpx">{{item.address}}</view>
 </view>
-</block>
+</block> -->
 
-<block wx:else>
-<view class="filterBar">
-  <image bindtap="filterBox" style="height: 24px;width:24px;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"></image>
-  <image bindtap="sortBox" style="height: 24px;width:24px;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCKIIb8YBB3N.svg"></image>
-  <!-- <view wx:if="{{!option}}" bindtap="sortBox">Sort</view>
-  <view wx:else style ="font-weight: bolder; color: red" bindtap="sortBox">Sort</view> -->
-</view>
-
+<block>
 <block wx:if="{{filterBox}}">
   <view class="filterBox">
     <form bindsubmit="formSubmit" bindreset="formReset">
