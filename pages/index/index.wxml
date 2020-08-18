@@ -24,7 +24,7 @@
 <view wx:if="{{show === 'search'}}" class="container-search">
   <view class="bar">
     <image class="icon" fill="#E7305B" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"/>
-    <input class="input" name="input" placeholder="Search" value="{{search}}" bindblur="searchBlur"  bindbfocus="searchfocus" bindinput="searchActiveChangeinput"/>
+    <input class="input" name="input" placeholder="Search" value="{{search}}" bindinput="searchActiveChangeinput"/>
   </view>
 </view>
 
@@ -45,81 +45,6 @@
   </picker>
 </view>
 
-<!-- <block wx:if="{{searchBar}}">
-  <view wx:for="{{searchBar}}" data-id="{{item.id}}" bindtap="searchSubmit" class="searchContainer">
-    <view class="searchCard">
-    <view style="font-weight:bolder">{{item.name}}</view>
-
-    <view style ="display: flex; align-items:center">
-      <text>{{item.like}}</text>
-      <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC4tDzTSPlXQ.svg"></image>
-      <text>{{item.dislike}}</text>
-      <image style="height:40rpx;width:36rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg"></image>
-    </view>
-  </view>
-  <view style="font-weight:lighter; font-size: 24rpx">{{item.address}}</view>
-</view>
-</block> -->
-
-<block>
-<block wx:if="{{filterBox}}">
-  <view class="filterBox">
-    <form bindsubmit="formSubmit" bindreset="formReset">
-      <view class="section section_gap">
-        <view class="section__title" style=" margin: 16px 0; background-color:#E7305B; color: white; padding:4px 8px; width:200rpx; border-radius: 3px;">PRICE</view>
-        <slider style=" margin-bottom: 16px;" max="250" name="price" show-value ></slider>
-      </view>
-      <view class="section section_gap">
-        <view class="section__title" style=" margin-bottom: 16px; background-color:#E7305B; color: white; padding:4px 8px; width:200rpx; border-radius: 3px;">LOCATION</view>
-        <checkbox-group name="district" style="display: flex; margin: 4px 0;width: 95%; justify-content: space-between;">
-          <label><checkbox value="南山区"/>南山区</label>
-          <label><checkbox value="福田区"/>福田区</label>
-          <label><checkbox value="罗湖区"/>罗湖区</label>
-          <label><checkbox value="宝安区"/>宝安区</label>
-        </checkbox-group>
-      </view>
-      <view class="btn-area" style="display: flex; width: 95%; margin-top: 16px">
-        <button formType="reset" style="width: 45% !important; background-color: white; border: 2px solid #E7305B; color: #E7305B">Reset</button>
-        <button formType="submit" style="width: 45% !important; background-color: white; border: 2px solid #E7305B; color: #E7305B">Submit</button>
-      </view>
-    </form> 
-  </view>
-</block>
-
-<block wx:if ="{{sortBox}}">
-<view style="background-color:#F7F7F7;padding-bottom:24rpx;">
- <form  bindsubmit="sortSubmit" bindreset="formReset">
- <view class="page-section page-section-gap" style="padding: 48rpx 16rpx">
-        <view class="page-section-title" style="background-color:#E7305B; color: white; padding:4px 8px; width:200rpx; border-radius: 3px;">Sort By:</view>
-        <radio-group name="radio" style = "margin: 48rpx auto; display: flex; justify-content: space-between;">
-          <label><radio value="price"/>PRICE</label>
-          <label><radio value="popular"/>POPULARITY</label>
-        </radio-group>
-      </view>
- <view class="btn-area" style="display: flex; width: 95%;">
-      <button formType="submit" style="width: 45% !important; margin-top: -48rpx; background-color: white; border: 1px solid #E7305B; color: #E7305B">Submit</button>
-    </view>
-  </form> 
-  </view>
-</block>
-
-<view wx:if="{{showFilter}}" style="padding: 4px 8px" class ="filterInfo">
-<view wx:if="{{filterInfo[0].price}}" style="background-color: #F0F0F0; border-radius:8px; padding:0 8px; margin:4px 4px; color: #E7305B">{{ filterInfo[0].price > 0 ? "0-" : ""}}{{filterInfo[0].price}}{{ filterInfo[0].price > 0 ? "RMB" : ""}}</view>
-
-<view wx:for="{{filterInfo[1].district}}">
-<view wx:if="{{item}}"style="background-color: #F0F0F0; padding:0 8px;  border-radius:8px; margin:4px 4px; color: #E7305B">{{item}}</view>
-</view>
-
-<view wx:if="{{sortInfo}}" style="background-color: #E7305B; padding:0 8px; border-radius:8px; margin:4px 4px; color: white">{{sortInfo}}</view>
-<view wx:if="{{!filterBox}}" bindtap="filterReset" >
-<icon wx:if="{{!sortBox}}"type="clear" size="19" color="#aaa" ></icon>
-</view>
-
-</view>
-
-
-
-
 <view class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
   <view class="card-product" wx:for ="{{bar}}">
     <image data-id="{{item.id}}"  bindtap="navigateToShowPage" mode="aspectFill" src="{{item.image.path}}" />
@@ -128,7 +53,7 @@
     <view wx:if="{{loading1}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
     <view wx:else style="height:4rpx; position:relative;left: 520rpx; top:-80rpx;">
-    <text bindtap="deleteFavorite" data-id="{{item.id}}"style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: #E7305B; color:white" >Saved</text>
+    <text bindtap="deleteFavorite" data-id="{{item.id}}" style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: #E7305B; color:white" >Saved</text>
     <view wx:if="{{loading2}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
     <view style = "display: flex; align-items:flex-end;justify-content: space-between;padding:0 12px;">
@@ -152,19 +77,7 @@
           <view style = "background-color:#F0F0F0; height:16px; width:{{(400-item.dislike)/400*550}}rpx"></view>
           <view style = "margin-left: 12px; font-size: 10px; font-weight:lighter;">{{item.dislike}}</view>
         </view>
-
       </view>
-
     </view>
   </view>
 </view>
-
-</block>
-
-<view class = "tabbar">
-  <view style ="font-weight:bolder" bindtap="navigateToHome">HOME</view>
-  <view bindtap="navigateToUser">USER</view>
-</view>
-
-
-
