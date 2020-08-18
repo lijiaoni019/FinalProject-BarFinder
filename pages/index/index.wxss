@@ -1,23 +1,108 @@
 @import "../../lib/weui.wxss";
 
-.binner{
-  
-  box-shadow: 0 0 2px rgba(0,0,0,0.1);
-  justify-content: cover;
-  margin-bottom: 8px;
-  background-color: darkcyan;
-  padding-top: 100px ;
-  padding-bottom: 16px;
+.banner{
+  background-color: #E7305B;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.banner .logo {
+  height: 75%;
+}
+
+.icon-container {
+  position: absolute;
+  height: 100rpx;
+  width: 100rpx;
+  bottom: 32rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.banner .icon {
+  height: 48rpx;
+  width: 48rpx;
+}
+
+.container-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120rpx;
+  box-sizing: border-box;
+}
+
+.container-search .bar {
+  background-color: white;
+  display: flex;
+  border: 1px solid #E7305B;
+  border-radius: 50px;
+  width: 95%;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+
+.container-search .icon {
+  height: 24rpx;
+  width: 24rpx;
+  margin-right: 32rpx;
+}
+
+.container-filter {
+  width: 100%;
+  height: 120rpx;
+  color:#E7305B;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.container-filter .text {
+  display: flex;
+  width: 47.5%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-sort {
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 32rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.btn-sort {
+  height: 80rpx;
+  width: 45% !important;
+  background: white;
+  border: 1px solid #E7305B;
+  color: #E7305B;
+}
+
+.btn-sort-active {
+  background: #E7305B;
+  color: white;
 }
 
 .searchBar{
   background-color: white;
-  width: 60%;
+  height: 32px;
   margin: 0 8px;
-  border-radius: 4px;
+  border: 1px solid #E7305B;
+  border-radius: 50px;
   display:flex;
   align-items: center;
-  padding: 0 4px
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .searchContainer{
@@ -28,43 +113,54 @@
 .searchCard{
   display:flex;
   justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.filterInfo{
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0,0,0,0.1);
+  align-items: center;
+
 }
 
 
 .filterBar{
   display: flex;
   justify-content: space-between;
-  padding: 8px;
-  background-color: white;
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  padding:4px 8px;
+  background-color:#E7305B;
+  margin-top:-36rpx;
 
 }
 
 .filterBox{
-  background-color: white;
-  height: 200px;
+  background-color:#F7F7F7;
+  height: 500rpx;
   width: 100%;
-  padding: 0 8px
+  padding: 8px 8px;
 
   
 }
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding:0 6px;
-  grid-gap: 6px;
+  grid-template-columns: 1fr;
+  padding:0 12px;
+  grid-gap: 12px;
+  padding-top: 24rpx;
 }
 
 .card-product {
   overflow: hidden;
   background: white;
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  box-shadow:0px 0px 8px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-
 }
+
 
 .card-product image {
   height: 210px;
@@ -94,7 +190,8 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: white;
+  background-color:#E7305B;
+  color: white;
   height: 100rpx;
   position:fixed;
   width: 100%;

@@ -9,113 +9,75 @@
   />
 </page-meta>
 
-<view class="binner">
-  <view class="searchBar">
-              <input name="input" placeholder="🔍Search Your Bar" value="{{search}}" bindfocus="focusSearch" bindinput="searchActiveChangeinput" auto-focus="true" />
-              <button  catchtap="searchActiveChangeclear" form-type="reset" style="background:none;border:none;width:80rpx;">
-              <icon type="clear" size="19" color="#aaa" ></icon>
-              </button>
-      </view>
+<!-- Banner -->
+<view class="banner">
+  <image class="logo" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCJsPxS44CEc.svg"></image>
+  <view class="icon-container" style="right: 32rpx;" bindtap="toggleFilter"  data-type="search">
+    <image class="icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"></image>
+  </view>
+  <view class="icon-container" bindtap="toggleFilter" data-type="sort" style="left: 32rpx;">
+    <image class="icon"  src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCKIIb8YBB3N.svg"></image>
+  </view>
+</view> 
+
+<!-- Search Bar -->
+<view wx:if="{{show === 'search'}}" class="container-search">
+  <view class="bar">
+    <image class="icon" fill="#E7305B" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"/>
+    <input class="input" name="input" placeholder="Search" value="{{search}}" bindinput="searchActiveChangeinput"/>
+  </view>
 </view>
 
-<block wx:if="{{searchBar}}">
-<view wx:for="{{searchBar}}" data-id="{{item.id}}" bindtap="searchSubmit" class="searchContainer">
- <view class="searchCard">
- <view style="font-weight:bolder">{{item.name}}</view>
- <view>{{item.like}}❤{{item.dislike}}💩</view>
- </view>
- <view style="font-weight:lighter">{{item.address}}</view>
-</view>
-</block>
-
-<block wx:else>
-<view class="filterBar">
-  <view wx:if="{{!data}}" bindtap="filterBox">Filter</view>
-  <view wx:else style ="font-weight: bolder; color: red" bindtap="filterBox">Filter</view>
-  <view wx:if="{{!option}}" bindtap="sortBox">Sort</view>
-  <view wx:else style ="font-weight: bolder; color: red" bindtap="sortBox">Sort</view>
-
+<!-- Sort Container -->
+<view wx:if="{{show === 'sort'}}" class="container-sort">
+  <button class="btn-sort {{sort === 'like' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="like">POPULARITY</button>
+  <button class="btn-sort {{sort === 'price' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="price">PRICE</button>
 </view>
 
-<block wx:if="{{filterBox}}">
-<view class="filterBox">
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <view class="section section_gap">
-      <view class="section__title">Price</view>
-      <slider max="250" name="price" show-value ></slider>
-    </view>
-    <view class="section section_gap">
-      <view class="section__title" style=" margin: 8px 0">Location</view>
-      <checkbox-group name="district" style="display: flex; width: 95%; justify-content: space-between;">
-        <label><checkbox value="南山区"/>南山区</label>
-        <label><checkbox value="福田区"/>福田区</label>
-        <label><checkbox value="罗湖区"/>罗湖区</label>
-        <label><checkbox value="宝安区"/>宝安区</label>
-      </checkbox-group>
-    </view>
-    <view class="btn-area" style="display: flex; width: 95%; margin-top: 16px">
-      <button formType="reset" style="width: 45% !important">Reset</button>
-      <button formType="submit" style="width: 45% !important">Submit</button>
-    </view>
-  </form> 
+<!-- Filter Container -->
+<view class="container-filter">
+  <picker data-type="location" class="text" bindchange="bindFilterChange" value="{{filter.location.index}}" range="{{filter.location.choices}}">
+      {{filter.location.choices[filter.location.index] || 'LOCATION'}}
+  </picker>
+  <view>|</view>
+  <picker data-type="price" class="text" bindchange="bindFilterChange" value="{{filter.price.index}}" range="{{filter.price.choices}}">
+    {{filter.price.choices[filter.price.index] || 'PRICE'}}
+  </picker>
 </view>
-</block>
 
-<block wx:if ="{{sortBox}}">
- <form bindsubmit="sortSubmit" bindreset="formReset">
- <view class="page-section page-section-gap">
-        <view class="page-section-title" style = "padding: 8px 8px;">Sort By:</view>
-        <radio-group name="radio" style = "display: flex; padding: 0px 8px; justify-content: space-between;">
-          <label><radio value="price"/>price</label>
-          <label><radio value="popular"/>popular</label>
-        </radio-group>
-      </view>
- <view class="btn-area" style="display: flex; width: 95%; margin: 8px auto">
-      <button formType="submit" style="width: 45% !important">Submit</button>
-    </view>
-  </form> 
-</block>
-
-
-
-
-
-<view class = "container" style ="padding-bottom: 60px;">
+<view class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
   <view class="card-product" wx:for ="{{bar}}">
     <image data-id="{{item.id}}"  bindtap="navigateToShowPage" mode="aspectFill" src="{{item.image.path}}" />
-
-    <view style = "display: flex; align-items: flex-end; justify-content: space-between;">
-    <view data-id="{{item.id}}"  bindtap="navigateToShowPage" class="card-product-infos">
-      <view ><h2>{{item.name}}</h2></view>
+    <view wx:if="{{!item.currentUserFavorite}}" style="height:4rpx;position:relative;left: 524rpx; top:-80rpx;">
+    <text bindtap="addFavorite" data-id="{{item.id}}" style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: white; border:2px solid #E7305B; color: #E7305B" >Save</text>
+    <view wx:if="{{loading1}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
-
-    
-
-
+    <view wx:else style="height:4rpx; position:relative;left: 520rpx; top:-80rpx;">
+    <text bindtap="deleteFavorite" data-id="{{item.id}}" style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: #E7305B; color:white" >Saved</text>
+    <view wx:if="{{loading2}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
-
-    <view style="display:flex; justify-content:space-between; align-items:center; padding:0 4px; margin:4px 0">
-
-      <view bindtap = "countLike"  data-id="{{item.id}}" data-favorite="{{item.favorite}}"data-like="{{item.like}}" style ="display: flex; align-items: center;">
-        <view style = "font-size: 10px; font-weight:lighter; margin-right: 2px">{{item.like }}</view>
-        <view style = "color:#BF0917; font-size:24px; margin-right: 2px">♥</view> 
-        <view style = "font-size: 10px; font-weight:lighter; margin:0 2px">{{item.poop }}</view>
-        <view style = "color:#BF0917; font-size:16px">💩</view> 
-      </view>
-
-      <view >
+    <view style = "display: flex; align-items:flex-end;justify-content: space-between;padding:0 12px;">
+      <text style="font-size:16px; font-weight:bolder">{{item.name}}</text>
       <view style = "font-size: 12px; margin-right:4px; flex-shrink:0">RMB {{item.price}}</view>
-      </view>
+    </view>
 
+    <view style = " display: flex; align-items: flex-end; justify-content: space-between;" data-id="{{item.id}}"  bindtap="navigateToShowPage" class="card-product-infos">
+      <view style="padding:0 4px; margin:4px 0">
+        
+        <view style="display:flex;align-items: center">
+          <image style="height:48rpx;width:48rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC4tDzTSPlXQ.svg"></image>
+          <view style = "margin-left: 4px; background-color:#E7305B; height:16px; width:{{item.like/400*550}}rpx"></view>
+          <view style = "background-color:#F0F0F0; height:16px; width:{{(400-item.like)/400*550}}rpx"></view>
+          <view style = "margin-left: 12px;font-size: 10px; font-weight:lighter; margin-right: 2px">{{item.like}}</view>
+        </view>
+
+        <view style="display:flex; align-items: center;">
+          <image style="height:48rpx;width:48rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg"></image>
+          <view style = "margin-left: 4px;background-color:#795E4E; height:16px; width:{{item.dislike/400*550}}rpx"></view>
+          <view style = "background-color:#F0F0F0; height:16px; width:{{(400-item.dislike)/400*550}}rpx"></view>
+          <view style = "margin-left: 12px; font-size: 10px; font-weight:lighter;">{{item.dislike}}</view>
+        </view>
+      </view>
     </view>
   </view>
 </view>
-</block>
-
-<view class = "tabbar">
-  <view style ="font-weight:bolder" bindtap="navigateToHome">HOME</view>
-  <view bindtap="navigateToUser">USER</view>
-</view>
-
-
-
