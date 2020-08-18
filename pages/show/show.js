@@ -111,6 +111,7 @@ Page({
     wx.BaaS.auth.getCurrentUser().then(user => {
       this.setData({user});
       this.fetchRating(bar_id);
+      this.fetchFavorite(bar_id, user.id);
     })
   },
 
@@ -120,6 +121,49 @@ Page({
       title: bar.name,
       path: `/pages/show/show?id=${bar.id}`
     }
+  },
+
+  toggleFavorite: function () {
+    let Favorite = new wx.BaaS.TableObject("favorite")
+    if (this.data.favorite) {
+      Favorite.delete(this.data.favorite.id).then(res => {
+        console.log(res);
+        if (res.statusCode == 204 ) {
+          this.setData({favorite: null});
+          wx.showToast({
+            title: 'Unsaved',
+            duration: 1000,
+          });
+        }
+      })
+    } else {
+      let favorite = Favorite.create();
+      let bar_id = this.data.bar.id;
+      let user_id = this.data.user.id;
+      favorite.set('bar_id', bar_id);
+      favorite.set('user_id', user_id);
+      favorite.save().then(res => {
+        if (res.statusCode == 201 ) {
+          this.setData({favorite: res.data});
+          wx.showToast({
+            title: 'Saved',
+            duration: 1000,
+          });
+        }
+      })
+    }
+
+    
+  },
+
+  fetchFavorite: function (bar_id, user_id) {
+    let Favorite = new wx.BaaS.TableObject("favorite");
+    let query = new wx.BaaS.Query();
+    query.compare('bar_id', '=', bar_id);
+    query.compare('user_id', '=', user_id);
+    Favorite.setQuery(query).find().then(res => {
+      this.setData({favorite: res.data.objects[0]});
+    })
   },
 
   onLoad: function (options) {
