@@ -8,32 +8,10 @@
     
     <!-- Saved Bars List -->
     <view class="saved-container">
-      
       <view class="title">My Saved Bars</view>
-      
-      <view wx:for="{{saved}}" class="card-bar" style="background: linear-gradient(105deg, #1C1818 0%, rgba(40, 36, 36, 0) 100%), url({{item.image.path}})">
-        <view class="name">{{item.name}}</view>
-        <view class="btn">Saved</view>
-        <view class="rating-container">
-          <view class="flex-container">
-            <view class="flex-container" style="flex-grow: 1;">
-              <image class="meter-icon" src="{{icons.dookie}}"></image>
-              <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277">
-              </view>
-              <view class="count">56</view>
-            </view>
-          </view>
-          <view class="flex-container">
-            <view class="flex-container" style="flex-grow: 1;">
-              <image class="meter-icon" src="{{icons.flame}}"/>
-              <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
-              </view>
-              <view class="count">234</view>
-            </view>
-          </view>
-        </view>
-      </view>
+      <bar-card wx:for="{{favoriteBars}}" bar="{{item}}"/>
     </view>
+  </view>
 </block>
 
 <block wx:else>
@@ -43,14 +21,3 @@
   </view>
   <button open-type="getUserInfo" bindgetuserinfo="userLogin" style="margin: 16rpx auto; background-color: #07C160" type="primary" >LOG IN</button> 
 </block>
-
-
-<!-- <view class = "tabbar">
-  <view  bindtap="navigateToHome">
-    <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCXip4eTEspg.svg"></image>
-  </view>
-  <view  bindtap="navigateToTinder">
-    <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCD3bUfflStC.svg"></image>
-  </view>
-  <image class="tabbar-icon" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC0fdcBFElhU.svg"></image>
-</view> -->
