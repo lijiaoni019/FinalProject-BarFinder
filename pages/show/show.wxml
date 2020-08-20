@@ -26,19 +26,26 @@ style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 1
     <view class="filter">{{bar.location}}</view>
     <image wx:if="{{bar.food}}" class="food-icon" src="{{icons.food}}"></image>
   </view>
-  <view class="address-container">
+  <view bindtap="openLocation" class="address-container">
     <image class="address-icon" src="{{icons.address}}"></image>
   {{bar.address}}
   </view>
   <view class="subheader">Rate Us</view>
+
+  <!-- Rating Container -->
   <view class="rating-container">
-    <view class="{{rating.dislike ? 'active-rating-btn' : 'rating-btn-container'}}" bindtap="addDislike">
+    
+    <!-- Dislike -->
+    <button class="btn {{rating.dislike ? 'btn-active' : ''}}" disabled="{{disabled}}" data-type="dislike" bindtap="toggleRating">
       <image class="rating-icon" src="{{icons.dookie}}"></image>
-    </view>
-    <view class="{{rating.like ? 'active-rating-btn' : 'rating-btn-container'}}" bindtap="addLike">
+    </button>
+    
+    <!-- Like -->
+    <view class="btn {{rating.like ? 'btn-active' : ''}}" disabled="{{disabled}}" data-type="like" bindtap="toggleRating">
       <image class="rating-icon" src="{{icons.flame}}"></image>
     </view>
   </view>
+  <!-- Share Button -->
   <view class="share-container">
     <button class="share-btn" open-type="share">Share</button>
   </view>
