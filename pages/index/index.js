@@ -66,6 +66,10 @@ Page({
     let Favorite = new wx.BaaS.TableObject("favorite");
     let query = new wx.BaaS.Query();
 
+    if (!this.data.user) {
+      return null;
+    }
+
     query.compare('user_id', '=', this.data.user.id);
     query.in('bar_id', barsIds);
 
@@ -154,6 +158,8 @@ Page({
   },
 
   onLoad: function () {
+    this.fetchBars();
+
     this.getCurrentUser();
   },
 
