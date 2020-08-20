@@ -98,10 +98,6 @@ Page({
         console.log(res);
         if (res.statusCode == 204 ) {
           this.setData({favorite: null});
-          wx.showToast({
-            title: 'Unsaved',
-            duration: 1000,
-          });
         }
       })
     } else {
@@ -113,10 +109,6 @@ Page({
       favorite.save().then(res => {
         if (res.statusCode == 201 ) {
           this.setData({favorite: res.data});
-          wx.showToast({
-            title: 'Saved',
-            duration: 1000,
-          });
         }
       })
     }
@@ -161,6 +153,7 @@ Page({
   onLoad: function (options) {
     let id = options.id;
     let user = wx.getStorageSync('user');
+    this.setData({user});
     
     this.fetchBar(id);
     this.fetchFavorite(id, user.id);
