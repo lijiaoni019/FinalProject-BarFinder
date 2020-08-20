@@ -44,3 +44,14 @@ page {
   color: #E7305B;
   box-sizing: border-box;
 }
+
+.btn-logout {
+  height: 80rpx;
+  background: white;
+  border: 1px solid #E7305B;
+  color: #E7305B;
+}
+
+.bar {
+  margin: 32rpx 0;
+}

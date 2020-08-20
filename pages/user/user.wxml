@@ -5,14 +5,16 @@
       <image class="avatar" mode="aspectFill" src="{{user.avatar}}"/>
       <view class="user">{{user.nickname}}</view>
     </view>
-    <button>Logout</button>
+    <button wx:if="{{user}}" class="btn-logout" bindtap="userLogout">Logout</button>
   </view>
 
   <view class="container">
     <!-- Saved Bars List -->
     <view class="saved-container">
       <view class="title">My Saved Bars</view>
-      <bar-card wx:for="{{favoriteBars}}" bar="{{item}}"/>
+        <view class="bar" wx:for="{{favorites}}"> 
+          <bar-card bar="{{item}}"/>      
+        </view>
     </view>
   </view>
 </block>
