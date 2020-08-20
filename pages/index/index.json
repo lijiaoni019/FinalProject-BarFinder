@@ -1,5 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "bar-card": "../../components/bar-card/bar-card"
+  },
   "navigationBarTitleText": "Bar嘛?"
 }
-

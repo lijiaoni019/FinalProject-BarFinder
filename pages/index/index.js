@@ -4,7 +4,6 @@ Page({
     nbBackgroundColor: '#ffffff',
     show: 'sort',
     sort: 'undefined',
-    favorites: [],
     filter: {
       location: {
         index: undefined,
@@ -46,17 +45,17 @@ Page({
       Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
         let bar = res.data.objects;
 
-        this.setData({bar});
-
         this.fetchFavorites(bar);
+
+        this.setData({bar});
       })
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
         let bar = res.data.objects;
 
-        this.setData({ bar });
-
         this.fetchFavorites(bar);
+
+        this.setData({ bar });
       })
     }
   },
@@ -73,7 +72,15 @@ Page({
     Favorite.setQuery(query).limit(50).find().then (res => {
       let favorites = res.data.objects;
 
-      this.setData({ favorites });
+      const newBars = bars.map((bar) => {
+        const favorite = favorites.filter((fav) => fav.bar_id.id === bar.id)[0];
+
+        const newBar = { ...bar, favorite: favorite, hasFavorite: !!favorite };
+
+        return newBar;
+      });
+
+      this.setData({ bar: newBars });
     });
   },
 
@@ -118,7 +125,9 @@ Page({
 
       Bar.setQuery(query).limit(50).find().then (res => {
         let bar = res.data.objects
-        this.setData({bar})
+        this.setData({bar});
+
+        this.fetchFavorites(bar);
       })
     } else {
       this.fetchBars();
@@ -144,61 +153,11 @@ Page({
     })
   },
 
-  createFavorite: function (bar) {
-    const Favorite = new wx.BaaS.TableObject("favorite");
-    const favorite = Favorite.create();
-
-    favorite.set('user_id', this.data.user.id);
-    favorite.set('bar_id', bar.id);
-
-    favorite.save().then(res => {
-      const newFavorite = res.data;
-
-      this.setData({ favorites: [...this.data.favorites, newFavorite] })
-    });
-  },
-
-  deleteFavorite: function (favorite) {
-    const Favorite = new wx.BaaS.TableObject("favorite");
-
-    Favorite.delete(favorite.id).then(res => {
-      if (res.statusCode == 204 ) {
-        const newFavorites = this.data.favorites.filter(fav => fav.id !== favorite.id);
-
-        this.setData({ favorites: newFavorites });
-      }
-    });
-  },
-
-  getFavorite: function(bar) {
-    const favorite = this.data.favorites.filter((fav) => fav.bar_id.id === bar.id);
-
-    if (favorite.length === 0) {
-      return null;
-    }
-
-    return favorite[0];
-  },
-
-  addFavorite: function(event) {
-    const barId = event.target.dataset.id;
-
-    const Bar = new wx.BaaS.TableObject("bar");
-    Bar.get(barId).then(res => {
-      const bar = res.data;
-
-      const favorite = this.getFavorite(bar);
-
-      if (favorite) {
-        this.deleteFavorite(favorite);
-      } else {
-        this.createFavorite(bar);
-      }
-    });
-  },
   onLoad: function () {
     this.getCurrentUser();
+  },
 
+  onShow: function () {
     this.fetchBars();
   }
 })
