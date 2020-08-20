@@ -153,8 +153,16 @@ Page({
     })
   },
 
+  getFont: function () {
+    wx.loadFontFace({
+      family: 'Poppins',
+      source: 'url(https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k8lx4zTbUixFeD7.ttf)',
+    })
+  },
+
   onLoad: function () {
     this.getCurrentUser();
+    this.getFont();
   },
 
   onShow: function () {

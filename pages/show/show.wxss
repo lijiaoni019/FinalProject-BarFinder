@@ -3,10 +3,12 @@
   height: 240px;
   background-size: cover;
   background-position: center;
+  object-fit: cover;
 }
 
 .container {
   padding: 0 32rpx;
+  font-family: "Poppins";
 }
 
 .header {
