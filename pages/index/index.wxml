@@ -21,7 +21,7 @@
 </view> 
 
 <!-- Search Bar -->
-<view wx:if="{{show === 'search'}}" class="container-search">
+<view style="font-family: 'Poppins'" wx:if="{{show === 'search'}}" class="container-search">
   <view class="bar">
     <image class="icon" fill="#E7305B" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCIbjoNFBj91.svg"/>
     <input class="input" name="input" placeholder="Search" value="{{search}}" bindinput="searchActiveChangeinput"/>
@@ -29,13 +29,13 @@
 </view>
 
 <!-- Sort Container -->
-<view wx:if="{{show === 'sort'}}" class="container-sort">
+<view style="font-family: 'Poppins'" wx:if="{{show === 'sort'}}" class="container-sort">
   <button class="btn-sort {{sort === 'like' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="like">POPULARITY</button>
   <button class="btn-sort {{sort === 'price' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="price">PRICE</button>
 </view>
 
 <!-- Filter Container -->
-<view class="container-filter">
+<view style="font-family: 'Poppins'" class="container-filter">
   <picker data-type="location" class="text" bindchange="bindFilterChange" value="{{filter.location.index}}" range="{{filter.location.choices}}">
       {{filter.location.choices[filter.location.index] || 'LOCATION'}}
   </picker>
@@ -45,7 +45,7 @@
   </picker>
 </view>
 
-<view class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
+<view style="font-family: 'Poppins'" class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
   <view wx:for ="{{bar}}">
     <bar-card bar="{{item}}" user="{{user}}"/>
   </view>

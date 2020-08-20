@@ -43,6 +43,8 @@ page {
   margin: 0 auto;
   color: #E7305B;
   box-sizing: border-box;
+  border-bottom: 1px solid #E7305B;
+  font-family: 'Poppins';
 }
 
 .btn-logout {
