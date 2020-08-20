@@ -7,27 +7,45 @@
   border-radius: 4px;
 }
 
-
-.card-product image {
+.card-product .image {
   height: 210px;
   width: 100%;
   object-fit: cover;
   flex-shrink: 0;
 }
 
-.card-product h2 {
+.card-product {
   font-size: 14px;
   font-weight: bold;
   margin: 0;
 }
 
-.card-product p {
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .7;
-  margin-bottom: 0;
+.meter-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 32rpx;
 }
 
-.card-product .card-product-infos {
-  padding: 0 4px;
+.meter-container .flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.meter-container .dynamic-bar {
+  height: 24rpx;
+  border-radius: 80rpx;
+  margin-left: 32rpx;
+  background: #E7305B;
+}
+
+.meter-container .meter-icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 16rpx 0;
+}
+
+.meter-container .count {
+  margin-left: 32rpx;
+  flex-shrink: 0;
 }

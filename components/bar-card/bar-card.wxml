@@ -1,63 +1,39 @@
-<!-- <view class="card-bar" style="background: linear-gradient(105deg, #1C1818 0%, rgba(40, 36, 36, 0) 100%), url({{bar.image.path}})"> -->
-  
-<!--   <view class="name">{{bar.name}}</view> -->
-  
-<!--   <view class="btn">Saved</view> -->
-  
-<!--   <view class="rating-container"> -->
-    
-<!--     <view class="flex-container"> -->
-<!--       <view class="flex-container" style="flex-grow: 1;"> -->
-<!--         <image class="meter-icon" src="{{icons.dookie}}"></image> -->
-<!--         <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277"> -->
-<!--         </view> -->
-<!--         <view class="count">{{bar.dislike}}</view> -->
-<!--       </view> -->
-<!--     </view> -->
-
-<!--     <view class="flex-container"> -->
-<!--       <view class="flex-container" style="flex-grow: 1;"> -->
-<!--         <image class="meter-icon" src="{{icons.flame}}"/> -->
-<!--         <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/> -->
-<!--         <view class="count">{{bar.like}}</view> -->
-<!--       </view> -->
-<!--     </view> -->
-<!--   </view> -->
-<!-- </view> -->
-
 <view class="card-product">
-  <image data-id="{{bar.id}}"  bindtap="navigateToShowPage" mode="aspectFill" src="{{bar.image.path}}" />
+  <image class="image" data-id="{{bar.id}}"  bindtap="navigateToShowPage" mode="aspectFill" src="{{bar.image.path}}" />
   <view wx:if="{{false}}">
+
     <view wx:if="{{!bar.hasFavorite}}" style="height:4rpx;position:relative;left: 524rpx; top:-80rpx;">
       <text bindtap="toggleFavorite" data-id="{{bar.id}}" style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: white; border:2px solid #E7305B; color: #E7305B" >Save</text>
       <view wx:if="{{loading1}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
+
     <view wx:else style="height:4rpx; position:relative;left: 520rpx; top:-80rpx;">
       <text bindtap="toggleFavorite" data-id="{{bar.id}}" style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: #E7305B; color:white" >Saved</text>
       <view wx:if="{{loading2}}" class="weui-loading" style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>
     </view>
   </view>
+
   <view style = "display: flex; align-items:flex-end;justify-content: space-between;padding:0 12px;">
     <text style="font-size:16px; font-weight:bolder">{{bar.name}}</text>
     <view style = "font-size: 12px; margin-right:4px; flex-shrink:0">RMB {{bar.price}}</view>
   </view>
 
   <view style = " display: flex; align-items: flex-end; justify-content: space-between;" bindtap="navigateToShowPage" class="card-product-infos">
-    <view style="padding:0 4px; margin:4px 0">
-
-      <view style="display:flex;align-items: center">
-        <image style="height:48rpx;width:48rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWC4tDzTSPlXQ.svg"></image>
-        <view style = "margin-left: 4px; background-color:#E7305B; height:16px; width:{{bar.like/400*550}}rpx"></view>
-        <view style = "background-color:#F0F0F0; height:16px; width:{{(400-bar.like)/400*550}}rpx"></view>
-        <view style = "margin-left: 12px;font-size: 10px; font-weight:lighter; margin-right: 2px">{{bar.like}}</view>
+    <view class="meter-container">
+      <view class="flex-container">
+        <view class="flex-container" style="flex-grow: 1;">
+          <image class="meter-icon" src="{{icons.flame}}"/>
+          <view class="dynamic-bar" style="width: {{bar.likeMeter}}%; background: #E7305B"/>
+        </view>
+        <view class="count">{{bar.like}}</view>
       </view>
 
-      <view style="display:flex; align-items: center;">
-        <image style="height:48rpx;width:48rpx;" src="https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k6rWCxi9HcQg8tY.svg"></image>
-        <view style = "margin-left: 4px;background-color:#795E4E; height:16px; width:{{bar.dislike/400*550}}rpx"></view>
-        <view style = "background-color:#F0F0F0; height:16px; width:{{(400-bar.dislike)/400*550}}rpx"></view>
-        <view style = "margin-left: 12px; font-size: 10px; font-weight:lighter;">{{bar.dislike}}</view>
-      </view>
-    </view>
+      <view class="flex-container">
+        <view class="flex-container" style="flex-grow: 1;">
+          <image class="meter-icon" src="{{icons.dookie}}"/>
+          <view class="dynamic-bar" style="width: {{bar.dislikeMeter}}%; background: #bfa277"/></view>
+        <view class="count">{{bar.dislike}}</view>
+      </view>  
+  </view>
   </view>
 </view>
