@@ -93,7 +93,9 @@
  <view class="page-section page-section-gap" style="padding: 48rpx 16rpx">
         <view class="page-section-title" style="background-color:#E7305B; color: white; padding:4px 8px; width:200rpx; border-radius: 3px;">Sort By:</view>
         <radio-group name="radio" style = "margin: 48rpx auto; display: flex; justify-content: space-between;">
-          <label><radio value="price"/>PRICE</label>
+          <label><radio value="price"/>
+          PRICE
+            </label>
           <label><radio value="popular"/>POPULARITY</label>
         </radio-group>
       </view>
