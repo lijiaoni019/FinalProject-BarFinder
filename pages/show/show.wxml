@@ -1,6 +1,6 @@
 <view 
 style="background: linear-gradient(225deg, rgba(0,0,0,.5) 0%, rgba(0, 0, 0, 0) 100%), url({{bar.image.path}});" class="showBannerImg">
-  <view bindtap="toggleFavorite" class="{{favorite ? 'active-save-btn' : 'save-btn'}}">Save</view>
+  <view bindtap="toggleFavorite" class="{{favorite ? 'active-save-btn' : 'save-btn'}}">{{favorite ? 'Saved' : 'Save'}}</view>
 </view>
 <view class="container"> 
   <view class="header">{{bar.name}}</view>
