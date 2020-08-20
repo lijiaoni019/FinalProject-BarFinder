@@ -6,21 +6,33 @@ page {
   padding: 0 32rpx;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background:#E7305B;
+  height: 120px;
+  box-sizing: border-box;
 }
 
 .header image {
-  margin: 32rpx 0;
-  height: 200rpx;
-  box-shadow: 0 0 2px rgba(0,0,0,0.1);
-  height: 200rpx;
-  width: 200rpx;
+  height: 160rpx;
+  width: 160rpx;
   border-radius: 50%;
   box-shadow: 4px 4px 8px rgba(0,0,0,0.25);
+  margin-right: 32rpx;
+}
+
+.header .user {
+  color: white;
+  font-size: 40rpx;
 }
 
 .title {
@@ -33,4 +45,15 @@ page {
   box-sizing: border-box;
   border-bottom: 1px solid #E7305B;
   font-family: 'Poppins';
+}
+
+.btn-logout {
+  height: 80rpx;
+  background: white;
+  border: 1px solid #E7305B;
+  color: #E7305B;
+}
+
+.bar {
+  margin: 32rpx 0;
 }
