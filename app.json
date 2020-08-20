@@ -11,6 +11,21 @@
     "navigationBarTitleText": "Weixin",
     "navigationBarTextStyle":"black"
   },
+
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "HOME",
+      "iconPath": "images/icon/post-light.png",
+      "selectedIconPath": "images/icon/post-dark.png"
+    },{
+      "pagePath": "pages/user/user",
+      "text": "USER",
+      "iconPath": "images/icon/user-light.png",
+      "selectedIconPath": "images/icon/user-dark.png"
+    }]
+  },
+  
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "plugins": {
