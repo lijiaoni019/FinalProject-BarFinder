@@ -10,32 +10,22 @@ Page({
   },
 
   checkCurrentUser: function () {
-    let currentUser = wx.getStorageSync('currentUser')
-    if (currentUser){
-      this.setData({currentUser})
-      this.setData({user: true})
-    } else {
-      this.setData({user: true})
-    }
+    let user = wx.getStorageSync('user');
+    this.setData({user});
   },
 
   userLogin: function (data) {
-    wx.BaaS.auth.loginWithWechat(data).then(currentUser => {
-      currentUser = currentUser.toJSON();
-      this.setData({currentUser});
-      wx.setStorageSync('currentUser',currentUser);
-    }, err => {
-     wx.showModal({
-       cancelColor: 'cancelColor',
-       title: 'Authorization Needed for Access',  
-     })
+    wx.BaaS.auth.loginWithWechat(data).then(user => {
+      user = user.toJSON();
+      this.setData({user});
+      wx.setStorageSync('user',user);
     })
   },
 
   userLogout: function () {
     wx.BaaS.auth.logout().then(res => {
-      wx.setStorageSync('currentUser', null);
-      this.setData({currentUser: null});
+      wx.setStorageSync('user', null);
+      this.setData({user: null});
     });
   },
 
