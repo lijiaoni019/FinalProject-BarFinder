@@ -167,3 +167,4 @@ Page({
     this.fetchRating(id, user.id);
   }
 })
+

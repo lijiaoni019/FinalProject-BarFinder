@@ -44,14 +44,50 @@ Page({
     if (sortType) {
       Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
         let bar = res.data.objects;
+
+        this.fetchFavorites(bar);
+
         this.setData({bar});
       })
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
         let bar = res.data.objects;
-        this.setData({bar});
+
+        this.fetchFavorites(bar);
+
+        this.setData({ bar });
       })
     }
+  },
+
+  fetchFavorites: function(bars) {
+    const barsIds = bars.map(bar => bar.id);
+
+    let Favorite = new wx.BaaS.TableObject("favorite");
+    let query = new wx.BaaS.Query();
+
+    query.compare('user_id', '=', this.data.user.id);
+    query.in('bar_id', barsIds);
+
+    Favorite.setQuery(query).limit(50).find().then (res => {
+      let favorites = res.data.objects;
+
+      const newBars = bars.map((bar) => {
+        const favorite = favorites.filter((fav) => fav.bar_id.id === bar.id)[0];
+
+        const newBar = { ...bar, favorite: favorite, hasFavorite: !!favorite };
+
+        return newBar;
+      });
+
+      this.setData({ bar: newBars });
+    });
+  },
+
+  getCurrentUser: function () {
+    wx.BaaS.auth.getCurrentUser().then(user => {
+      this.setData({ user });
+    })
   },
 
   bindFilterChange: function (e) {
@@ -89,7 +125,9 @@ Page({
 
       Bar.setQuery(query).limit(50).find().then (res => {
         let bar = res.data.objects
-        this.setData({bar})
+        this.setData({bar});
+
+        this.fetchFavorites(bar);
       })
     } else {
       this.fetchBars();
@@ -116,6 +154,10 @@ Page({
   },
 
   onLoad: function () {
-    this.fetchBars(); 
+    this.getCurrentUser();
+  },
+
+  onShow: function () {
+    this.fetchBars();
   }
 })
