@@ -43,19 +43,29 @@ Page({
     // --- Sort and Fetch--- //
     if (sortType) {
       Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
-        let bar = res.data.objects;
+        let bars = res.data.objects;
 
-        this.fetchFavorites(bar);
+        bars.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
 
-        this.setData({bar});
+        this.setData({bar: bars});
       })
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
-        let bar = res.data.objects;
+        let bars = res.data.objects;
 
-        this.fetchFavorites(bar);
+        bars.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
 
-        this.setData({ bar });
+        this.setData({ bar: bars });
       })
     }
   },
@@ -158,8 +168,6 @@ Page({
   },
 
   onLoad: function () {
-    this.fetchBars();
-
     this.getCurrentUser();
   },
 

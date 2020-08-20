@@ -46,7 +46,7 @@
 </view>
 
 <view class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
-  <view wx:for ="{{bar}}">
+  <view wx:for="{{bar}}" wx:key="id">
     <bar-card bar="{{item}}" user="{{user}}"/>
   </view>
 </view>
