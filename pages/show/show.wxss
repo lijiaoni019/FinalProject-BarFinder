@@ -1,12 +1,13 @@
 .showBannerImg {
   width: 100%;
   height: 240px;
-  background-size: cover;
+  background-size: cover !important;
   background-position: center;
 }
 
 .container {
   padding: 0 32rpx;
+  font-family: "Poppins";
 }
 
 .header {
