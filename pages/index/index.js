@@ -3,7 +3,7 @@ Page({
     nbFrontColor: '#000000',
     nbBackgroundColor: '#ffffff',
     show: 'sort',
-    sort: 'undefined',
+    sort: undefined,
     filter: {
       location: {
         index: undefined,
@@ -16,9 +16,15 @@ Page({
     },
   },
 
+  getFont: function () {
+    wx.loadFontFace({
+      family: 'Poppins',
+      source: 'url(https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k8lx4zTbUixFeD7.ttf)',
+    })
+  },
+
   fetchBars: function () {
     let location = this.data.filter.location.choices[this.data.filter.location.index];
-    console.log(this.data.filter.location.index)
     let price = this.data.filter.price.choices[this.data.filter.price.index];
     let sortType = this.data.sort;
     let min, max;
@@ -42,10 +48,9 @@ Page({
     if (price) query.compare('price', '>=', min);
     if (price && max) query.compare('price', '<=', max);
 
-    let orderBy = (sortType === 'like') ? '-like' : 'price'
-
     // --- Sort and Fetch--- //
     if (sortType) {
+      let orderBy = (sortType === 'like') ? '-like' : 'price'
       Bar.setQuery(query).orderBy([orderBy]).limit(50).find().then (res => {
         let bars = res.data.objects;
         console.log(bars)
@@ -133,6 +138,7 @@ Page({
   },
 
   searchActiveChangeinput: function(e) {
+    console.log(this.data.search)
     let input = e.detail.value;
 
     if (input) {
@@ -144,10 +150,15 @@ Page({
       query.matches('name', input);
 
       Bar.setQuery(query).limit(50).find().then (res => {
-        let bar = res.data.objects
-        this.setData({bar});
-
-        this.fetchFavorites(bar);
+        let bars = res.data.objects
+        bars.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
+        this.setData({bar:bars});
+        this.fetchFavorites(bars);
       })
     } else {
       this.fetchBars();
@@ -162,6 +173,7 @@ Page({
 
   navigateToShowPage:function(e){
     let id = e.currentTarget.dataset.id;
+    
     wx.navigateTo({
       url: `../show/show?id=${id}`,
     })
@@ -181,7 +193,8 @@ Page({
   },
 
   onLoad: function () {
-    this.getCurrentUser();
+    let user = wx.getStorageSync('user')
+    this.setData({user})
     this.getFont();
   },
 

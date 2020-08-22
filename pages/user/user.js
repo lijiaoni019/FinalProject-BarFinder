@@ -37,6 +37,14 @@ Page({
   
       Favorite.setQuery(query).limit(50).expand(['bar_id']).find().then (res => {
         let favorites = res.data.objects.map(item => item.bar_id);
+        
+        favorites.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
+
         this.setData({ favorites });
       })
     }
@@ -49,10 +57,11 @@ Page({
     })
   },
 
-  onLoad: function (options) {
+  onShow: function (options) {
     let user = wx.getStorageSync('user');
     this.loadFavorites(user);
     this.setData({user});
     this.getFont();
   }
+  
 })
