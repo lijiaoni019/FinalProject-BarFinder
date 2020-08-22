@@ -18,6 +18,7 @@ Page({
 
   fetchBars: function () {
     let location = this.data.filter.location.choices[this.data.filter.location.index];
+    console.log(this.data.filter.location.index)
     let price = this.data.filter.price.choices[this.data.filter.price.index];
     let sortType = this.data.sort;
     let min, max;
@@ -27,6 +28,7 @@ Page({
     // if (location === 'BaoAn') {location = '宝安区'};
     // if (location === 'Futian') {location = '福田区'};
     // if (location === 'Luohu') {location = '罗湖区'};
+    // console.log(location)
 
     if (price) { min = Number.parseInt(price.split(' ')[0]) };
     if (price) { max = Number.parseInt(price.split(' ')[2]) };
@@ -42,10 +44,27 @@ Page({
 
     // --- Sort and Fetch--- //
     if (sortType) {
-      Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
+      console.log(sortType)
+      if(sortType==='like') {Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
         let bars = res.data.objects;
+        console.log(bars)
 
         bars.forEach(bar => {
+          console.log("executed")
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
+
+        this.setData({bar: bars});
+      })} else if(sortType==='price'){
+        Bar.setQuery(query).orderBy([`${sortType}`]).limit(50).find().then (res => {
+        let bars = res.data.objects;
+        console.log(bars)
+
+        bars.forEach(bar => {
+          console.log("executed")
           let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
           
           bar['likeMeter'] = bar.like / denominator * 100;
@@ -54,6 +73,8 @@ Page({
 
         this.setData({bar: bars});
       })
+        
+      }
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
         let bars = res.data.objects;
