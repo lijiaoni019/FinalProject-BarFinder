@@ -24,11 +24,11 @@ Page({
     let min, max;
 
     // --- Clean up data --- //
-    // if (location === 'Nanshan') {location = '南山区'};
-    // if (location === 'BaoAn') {location = '宝安区'};
-    // if (location === 'Futian') {location = '福田区'};
-    // if (location === 'Luohu') {location = '罗湖区'};
-    // console.log(location)
+    if (location === 'Nanshan') {location = '南山区'};
+    if (location === 'BaoAn') {location = '宝安区'};
+    if (location === 'Futian') {location = '福田区'};
+    if (location === 'Luohu') {location = '罗湖区'};
+    console.log(location)
 
     if (price) { min = Number.parseInt(price.split(' ')[0]) };
     if (price) { max = Number.parseInt(price.split(' ')[2]) };
@@ -42,24 +42,11 @@ Page({
     if (price) query.compare('price', '>=', min);
     if (price && max) query.compare('price', '<=', max);
 
+    let orderBy = (sortType === 'like') ? '-like' : 'price'
+
     // --- Sort and Fetch--- //
     if (sortType) {
-      console.log(sortType)
-      if(sortType==='like') {Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
-        let bars = res.data.objects;
-        console.log(bars)
-
-        bars.forEach(bar => {
-          console.log("executed")
-          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
-          
-          bar['likeMeter'] = bar.like / denominator * 100;
-          bar['dislikeMeter'] = bar.dislike / denominator * 100;
-        })
-
-        this.setData({bar: bars});
-      })} else if(sortType==='price'){
-        Bar.setQuery(query).orderBy([`${sortType}`]).limit(50).find().then (res => {
+      Bar.setQuery(query).orderBy([orderBy]).limit(50).find().then (res => {
         let bars = res.data.objects;
         console.log(bars)
 
@@ -73,8 +60,6 @@ Page({
 
         this.setData({bar: bars});
       })
-        
-      }
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
         let bars = res.data.objects;
