@@ -23,10 +23,10 @@ Page({
     let min, max;
 
     // --- Clean up data --- //
-    if (location === 'Nanshan') {location = '南山区'};
-    if (location === 'BaoAn') {location = '宝安区'};
-    if (location === 'Futian') {location = '福田区'};
-    if (location === 'Luohu') {location = '罗湖区'};
+    // if (location === 'Nanshan') {location = '南山区'};
+    // if (location === 'BaoAn') {location = '宝安区'};
+    // if (location === 'Futian') {location = '福田区'};
+    // if (location === 'Luohu') {location = '罗湖区'};
 
     if (price) { min = Number.parseInt(price.split(' ')[0]) };
     if (price) { max = Number.parseInt(price.split(' ')[2]) };

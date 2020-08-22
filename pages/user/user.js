@@ -51,7 +51,7 @@ Page({
 
   onLoad: function (options) {
     let user = wx.getStorageSync('user');
-    this.loadFavorites();
+    this.loadFavorites(user);
     this.setData({user});
     this.getFont();
   }
