@@ -12,7 +12,7 @@
     <!-- Saved Bars List -->
     <view class="saved-container">
       <view class="title">My Saved Bars</view>
-        <view class="bar" wx:for="{{favorites}}"> 
+        <view class="bar" wx:for="{{bar}}"> 
           <bar-card bar="{{item}}"/>      
         </view>
     </view>

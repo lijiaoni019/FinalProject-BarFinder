@@ -1,5 +1,9 @@
 Page({
 
+  data:{
+
+  },
+
   navigateToHome: function () {
     wx.navigateTo({
       url: "../index/index"
@@ -35,12 +39,27 @@ Page({
   
       query.compare('user_id', '=', user.id);
   
-      Favorite.setQuery(query).limit(50).expand(['bar_id']).find().then (res => {
-        let favorites = res.data.objects.map(item => item.bar_id);
-        this.setData({ favorites });
+      Favorite.setQuery(query).limit(50).expand(['bar_id']).orderBy(['-created_at']).find().then (res => {
+        console.log(res)
+        let favorites = res.data.objects.map(item => {
+          let bar = item.bar_id
+          let favorite = item
+          let newItem = {...bar, favorite: favorite, hasFavorite: !!favorite}
+          return newItem
+        });
+        
+        favorites.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
+        this.setData({ bar: favorites });
       })
     }
   },
+
+
 
   getFont: function () {
     wx.loadFontFace({
@@ -49,10 +68,11 @@ Page({
     })
   },
 
-  onLoad: function (options) {
+  onShow: function (options) {
     let user = wx.getStorageSync('user');
-    this.loadFavorites();
+    this.loadFavorites(user);
     this.setData({user});
     this.getFont();
   }
+  
 })

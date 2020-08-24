@@ -3,7 +3,7 @@ Page({
     nbFrontColor: '#000000',
     nbBackgroundColor: '#ffffff',
     show: 'sort',
-    sort: 'undefined',
+    sort: undefined,
     filter: {
       location: {
         index: undefined,
@@ -14,6 +14,13 @@ Page({
         choices: ['0 ~ 99', '100 ~ 199', '200 ~ 299', '299 +']
       }
     },
+  },
+
+  getFont: function () {
+    wx.loadFontFace({
+      family: 'Poppins',
+      source: 'url(https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k8lx4zTbUixFeD7.ttf)',
+    })
   },
 
   fetchBars: function () {
@@ -27,6 +34,7 @@ Page({
     if (location === 'BaoAn') {location = '宝安区'};
     if (location === 'Futian') {location = '福田区'};
     if (location === 'Luohu') {location = '罗湖区'};
+    console.log(location)
 
     if (price) { min = Number.parseInt(price.split(' ')[0]) };
     if (price) { max = Number.parseInt(price.split(' ')[2]) };
@@ -42,10 +50,13 @@ Page({
 
     // --- Sort and Fetch--- //
     if (sortType) {
-      Bar.setQuery(query).orderBy([`-${sortType}`]).limit(50).find().then (res => {
+      let orderBy = (sortType === 'like') ? '-like' : 'price'
+      Bar.setQuery(query).orderBy([orderBy]).limit(50).find().then (res => {
         let bars = res.data.objects;
+        console.log(bars)
 
         bars.forEach(bar => {
+          console.log("executed")
           let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
           
           bar['likeMeter'] = bar.like / denominator * 100;
@@ -66,6 +77,7 @@ Page({
         })
 
         this.setData({ bar: bars });
+        this.fetchFavorites(bars)
       })
     }
   },
@@ -85,18 +97,20 @@ Page({
 
     Favorite.setQuery(query).limit(50).find().then (res => {
       let favorites = res.data.objects;
+      console.log(favorites)
 
       const newBars = bars.map((bar) => {
         const favorite = favorites.filter((fav) => fav.bar_id.id === bar.id)[0];
-
         const newBar = { ...bar, favorite: favorite, hasFavorite: !!favorite };
 
         return newBar;
       });
 
       this.setData({ bar: newBars });
+      
     });
   },
+
 
   getCurrentUser: function () {
     wx.BaaS.auth.getCurrentUser().then(user => {
@@ -127,6 +141,7 @@ Page({
   },
 
   searchActiveChangeinput: function(e) {
+    console.log(this.data.search)
     let input = e.detail.value;
 
     if (input) {
@@ -138,24 +153,24 @@ Page({
       query.matches('name', input);
 
       Bar.setQuery(query).limit(50).find().then (res => {
-        let bar = res.data.objects
-        this.setData({bar});
-
-        this.fetchFavorites(bar);
+        let bars = res.data.objects
+        bars.forEach(bar => {
+          let denominator = bar.like > bar.dislike ? bar.like : bar.dislike;
+          
+          bar['likeMeter'] = bar.like / denominator * 100;
+          bar['dislikeMeter'] = bar.dislike / denominator * 100;
+        })
+        this.setData({bar:bars});
+        this.fetchFavorites(bars);
       })
     } else {
       this.fetchBars();
     }
   },
 
-  checkCurrentUser: function () {
-    wx.BaaS.auth.loginWithWechat().then(currentUser => {
-      this.setData({currentUser})
-    })
-  },
-
   navigateToShowPage:function(e){
     let id = e.currentTarget.dataset.id;
+    
     wx.navigateTo({
       url: `../show/show?id=${id}`,
     })
@@ -167,15 +182,9 @@ Page({
     })
   },
 
-  getFont: function () {
-    wx.loadFontFace({
-      family: 'Poppins',
-      source: 'url(https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k8lx4zTbUixFeD7.ttf)',
-    })
-  },
-
   onLoad: function () {
-    this.getCurrentUser();
+    let user = wx.getStorageSync('user')
+    this.setData({user})
     this.getFont();
   },
 

@@ -30,47 +30,62 @@ Component({
       });
     },
 
-    // createFavorite: function () {
-    //   const Favorite = new wx.BaaS.TableObject("favorite");
-    //   const favorite = Favorite.create();
-    //   const bar = this.data.bar;
+    createFavorite: function () {
+      const Favorite = new wx.BaaS.TableObject("favorite");
+      const favorite = Favorite.create();
+      const bar = this.data.bar;
 
-    //   favorite.set('user_id', this.data.user.id);
-    //   favorite.set('bar_id', bar.id);
+      favorite.set('user_id', this.data.user.id);
+      favorite.set('bar_id', bar.id);
 
-    //   favorite.save().then(res => {
-    //     const newFavorite = res.data;
+      favorite.save().then(res => {
+        const newFavorite = res.data;
+        console.log(res.data)
 
-    //     bar.favorite = newFavorite;
-    //     bar.hasFavorite = true;
+        bar.favorite = newFavorite;
+        bar.hasFavorite = true;
 
-    //     this.setData({ bar });
-    //   });
-    // },
+        this.setData({ bar });
+        console.log(this.data.bar)
+        
+      });
+    },
 
-    // deleteFavorite: function () {
-    //   const Favorite = new wx.BaaS.TableObject("favorite");
-    //   const favorite = this.data.bar.favorite;
+    deleteFavorite: function () {
 
-    //   Favorite.delete(favorite.id).then(res => {
-    //     if (res.statusCode == 204 ) {
-    //       const bar = this.data.bar;
+    
+      const Favorite = new wx.BaaS.TableObject("favorite");
+      const favorite = this.data.bar.favorite;
+      console.log(favorite)
 
-    //       bar.favorite = null;
-    //       bar.hasFavorite = false;
+      Favorite.delete(favorite.id).then(res => {
 
-    //       this.setData({ bar });
-    //     }
-    //   });
-    // },
-    // toggleFavorite: function() {
-    //   const favorite = this.data.bar.favorite;
+        if (res.statusCode == 204 ) {
+          console.log(res.statusCode)
+          const bar = this.data.bar;
 
-    //   if (favorite) {
-    //     this.deleteFavorite();
-    //   } else {
-    //     this.createFavorite();
-    //   }
-    // },
+          bar.favorite = null;
+          bar.hasFavorite = false;
+
+          this.setData({ bar });
+         
+        }
+        
+      });
+    },
+
+
+    toggleFavorite: function() {
+      const favorite = this.data.bar.favorite;
+      console.log(favorite)
+
+      if (favorite) {
+        console.log("delete")
+        this.deleteFavorite();
+      } else {
+        console.log("add")
+        this.createFavorite();
+      }
+    },
   }
 });

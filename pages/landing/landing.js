@@ -16,7 +16,7 @@ Page({
 
  
   onLoad: function (options) {
-
+ 
     // setTimeout(function(){
     //   wx.navigateTo({
     //     url: '../index/index',
