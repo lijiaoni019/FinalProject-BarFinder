@@ -77,6 +77,7 @@ Page({
         })
 
         this.setData({ bar: bars });
+        this.fetchFavorites(bars)
       })
     }
   },
@@ -96,18 +97,20 @@ Page({
 
     Favorite.setQuery(query).limit(50).find().then (res => {
       let favorites = res.data.objects;
+      console.log(favorites)
 
       const newBars = bars.map((bar) => {
         const favorite = favorites.filter((fav) => fav.bar_id.id === bar.id)[0];
-
         const newBar = { ...bar, favorite: favorite, hasFavorite: !!favorite };
 
         return newBar;
       });
 
       this.setData({ bar: newBars });
+      
     });
   },
+
 
   getCurrentUser: function () {
     wx.BaaS.auth.getCurrentUser().then(user => {
@@ -165,12 +168,6 @@ Page({
     }
   },
 
-  checkCurrentUser: function () {
-    wx.BaaS.auth.loginWithWechat().then(currentUser => {
-      this.setData({currentUser})
-    })
-  },
-
   navigateToShowPage:function(e){
     let id = e.currentTarget.dataset.id;
     
@@ -182,13 +179,6 @@ Page({
   navigateToUser: function () {
     wx.navigateTo({
       url: "../user/user"
-    })
-  },
-
-  getFont: function () {
-    wx.loadFontFace({
-      family: 'Poppins',
-      source: 'url(https://cloud-minapp-36814.cloud.ifanrusercontent.com/1k8lx4zTbUixFeD7.ttf)',
     })
   },
 
