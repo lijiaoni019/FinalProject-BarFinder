@@ -1,5 +1,5 @@
 Page({
-  data:{
+  data:{ 
     nbFrontColor: '#000000',
     nbBackgroundColor: '#ffffff',
     show: 'sort',
