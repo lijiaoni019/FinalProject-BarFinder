@@ -2,7 +2,7 @@
     <image class="image" data-id="{{bar.id}}" bindtap="navigateToShowPage" mode="aspectFill" src="{{bar.image.path}}" />
     <view wx:if="{{user}}">
         <view wx:if="{{!bar.hasFavorite}}" style="height:4rpx;position:relative;left: 524rpx; top:-80rpx;">
-            <text bindtap="toggleFavorite" data-id="{{bar.id}}"
+            <text bindtap="toggleFavorite" data-id="{{bar.id}}" 
                 style="padding: 12rpx 58rpx; margin: 16rpx auto; background-color: white; border:2px solid #E7305B; color: #E7305B">Save</text>
             <view wx:if="{{loading1}}" class="weui-loading"
                 style="position:relative; right:128rpx; width: 50rpx; height: 50rpx;"></view>

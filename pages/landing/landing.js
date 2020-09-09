@@ -5,52 +5,21 @@ Page({
    * Page initial data
    */
   data: {
+    nbFrontColor: '#000000',
+    nbBackgroundColor: '#ffffff',
 
   }, 
 
+ onLoad:function(){
+   setTimeout(()=>{ wx.switchTab({
+    url: '../index/index',
+ })},3000)
+ },
+
   navigateToIndexPage: function(){
-    wx.redirectTo({
+    wx.switchTab({
          url: '../index/index',
       })
   },
 
- 
-  onLoad: function (options) {
- 
-    // setTimeout(function(){
-    //   wx.navigateTo({
-    //     url: '../index/index',
-    //   })
-    // },3000)
-
-  },
-
-  onReady: function () {
-
-  },
-
-  onShow: function () {
-
-  },
-
-  onHide: function () {
-
-  },
-
-  onUnload: function () {
-
-  },
-
-
-  onPullDownRefresh: function () {
-
-  },
-
-  onReachBottom: function () {
-
-  },
-
-  onShareAppMessage: function () {
-
-  }
 })

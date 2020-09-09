@@ -28,22 +28,25 @@
   </view>
 </view>
 
-<!-- Sort Container -->
-<view style="font-family: 'Poppins'" wx:if="{{show === 'sort'}}" class="container-sort">
+<!-- filter container -->
+<view wx:if="{{show === 'sort'}}">
+<view style="font-family: 'Poppins'"  class="container-sort">
   <button class="btn-sort {{sort === 'like' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="like">POPULARITY</button>
   <button class="btn-sort {{sort === 'price' ? 'btn-sort-active': ''}}" bindtap="toggleSort" data-type="price">PRICE</button>
 </view>
 
-<!-- Filter Container -->
 <view style="font-family: 'Poppins'" class="container-filter">
   <picker data-type="location" class="text" bindchange="bindFilterChange" value="{{filter.location.index}}" range="{{filter.location.choices}}">
       {{filter.location.choices[filter.location.index] || 'LOCATION'}}
   </picker>
   <view>|</view>
   <picker data-type="price" class="text" bindchange="bindFilterChange" value="{{filter.price.index}}" range="{{filter.price.choices}}">
-    {{filter.price.choices[filter.price.index] || 'PRICE'}}
+    {{filter.price.choices[filter.price.index] || 'PRICE RANGE'}}
   </picker>
 </view>
+</view>
+
+
 
 <view style="font-family: 'Poppins'" class = "container" style ="padding-bottom: 60px; opacity:{{opacity}}">
   <view wx:for ="{{bar}}" wx:key="id">
