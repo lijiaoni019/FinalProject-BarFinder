@@ -40,7 +40,6 @@ Page({
       query.compare('user_id', '=', user.id);
   
       Favorite.setQuery(query).limit(50).expand(['bar_id']).orderBy(['-created_at']).find().then (res => {
-        console.log(res)
         let favorites = res.data.objects.map(item => {
           let bar = item.bar_id
           let favorite = item
@@ -55,6 +54,7 @@ Page({
           bar['dislikeMeter'] = bar.dislike / denominator * 100;
         })
         this.setData({ bar: favorites });
+
       })
     }
   },
@@ -70,9 +70,14 @@ Page({
 
   onShow: function (options) {
     let user = wx.getStorageSync('user');
+    console.log(user)
     this.loadFavorites(user);
     this.setData({user});
+    console.log(this.data)
     this.getFont();
-  }
+  },
+
+
+  
   
 })

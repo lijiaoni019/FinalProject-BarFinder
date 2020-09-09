@@ -5,11 +5,15 @@ Page({
    * Page initial data
    */
   data: {
+    nbFrontColor: '#000000',
+    nbBackgroundColor: '#ffffff',
 
   }, 
 
  onLoad:function(){
-   setTimeout("navigateToIndexPage()",2000)
+   setTimeout(()=>{ wx.switchTab({
+    url: '../index/index',
+ })},3000)
  },
 
   navigateToIndexPage: function(){

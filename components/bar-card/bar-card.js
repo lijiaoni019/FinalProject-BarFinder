@@ -31,22 +31,24 @@ Component({
     },
 
     createFavorite: function () {
+
       const Favorite = new wx.BaaS.TableObject("favorite");
       const favorite = Favorite.create();
       const bar = this.data.bar;
+      console.log(this.data)
+
 
       favorite.set('user_id', this.data.user.id);
       favorite.set('bar_id', bar.id);
 
       favorite.save().then(res => {
+        console.log(res)
         const newFavorite = res.data;
-        console.log(res.data)
 
         bar.favorite = newFavorite;
         bar.hasFavorite = true;
 
         this.setData({ bar });
-        console.log(this.data.bar)
         
       });
     },
@@ -56,12 +58,10 @@ Component({
     
       const Favorite = new wx.BaaS.TableObject("favorite");
       const favorite = this.data.bar.favorite;
-      console.log(favorite)
 
       Favorite.delete(favorite.id).then(res => {
 
         if (res.statusCode == 204 ) {
-          console.log(res.statusCode)
           const bar = this.data.bar;
 
           bar.favorite = null;
@@ -77,7 +77,7 @@ Component({
 
     toggleFavorite: function() {
       const favorite = this.data.bar.favorite;
-      console.log(favorite)
+  
 
       if (favorite) {
         console.log("delete")

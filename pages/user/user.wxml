@@ -1,3 +1,5 @@
+
+
 <block wx:if="{{user}}">
   <!-- Header -->
   <view class="container header">
@@ -13,9 +15,9 @@
     <view class="saved-container">
       <view class="title">My Saved Bars</view>
         <view class="bar" wx:for="{{bar}}"> 
-          <bar-card bar="{{item}}"/>      
+          <bar-card bar="{{item}}" user="{{user}}"/>      
         </view>
-    </view>
+    </view> 
   </view>
 </block>
 

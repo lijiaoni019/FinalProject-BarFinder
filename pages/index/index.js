@@ -2,16 +2,16 @@ Page({
   data:{ 
     nbFrontColor: '#000000',
     nbBackgroundColor: '#ffffff',
-    show: 'sort',
+    show: 'sort', 
     sort: undefined,
     filter: {
       location: {
         index: undefined,
-        choices: ['Nanshan', 'Futian', 'Luohu', 'BaoAn']
+        choices: ['All District','Nanshan', 'Futian', 'Luohu', 'BaoAn']
       },
       price: {
         index: undefined,
-        choices: ['0 ~ 99', '100 ~ 199', '200 ~ 299', '299 +']
+        choices: ['All Price Range','0 ~ 99', '100 ~ 199', '200 ~ 299', '299 +']
       }
     },
   },
@@ -26,6 +26,7 @@ Page({
   fetchBars: function () {
     let location = this.data.filter.location.choices[this.data.filter.location.index];
     let price = this.data.filter.price.choices[this.data.filter.price.index];
+    let priceIndex = this.data.filter.price.index;
     let sortType = this.data.sort;
     let min, max;
 
@@ -36,17 +37,17 @@ Page({
     if (location === 'Luohu') {location = '罗湖区'};
     console.log(location)
 
-    if (price) { min = Number.parseInt(price.split(' ')[0]) };
-    if (price) { max = Number.parseInt(price.split(' ')[2]) };
+    if (priceIndex!= undefined && priceIndex!=0) { min = Number.parseInt(price.split(' ')[0]) };
+    if (priceIndex!=undefined && priceIndex!=0) { max = Number.parseInt(price.split(' ')[2]) };
 
     // --- Set up BaaS --- //
     let Bar = new wx.BaaS.TableObject("bar");
     let query = new wx.BaaS.Query();
 
     // --- Queries --- //
-    if (location) query.compare('location', '=', location);
-    if (price) query.compare('price', '>=', min);
-    if (price && max) query.compare('price', '<=', max);
+    if (location== '南山区'||location== '宝安区'||location== '福田区'||location== '罗湖区') query.compare('location', '=', location);
+    if (priceIndex!= undefined && priceIndex!=0) query.compare('price', '>=', min);
+    if (priceIndex!= undefined && priceIndex!=0 && max) query.compare('price', '<=', max);
 
     // --- Sort and Fetch--- //
     if (sortType) {
@@ -64,6 +65,7 @@ Page({
         })
 
         this.setData({bar: bars});
+        this.fetchFavorites(bars)
       })
     } else {
       Bar.setQuery(query).limit(50).find().then (res => {
@@ -83,6 +85,8 @@ Page({
   },
 
   fetchFavorites: function(bars) {
+    console.log("favorites")
+
     const barsIds = bars.map(bar => bar.id);
 
     let Favorite = new wx.BaaS.TableObject("favorite");
@@ -96,6 +100,7 @@ Page({
     query.in('bar_id', barsIds);
 
     Favorite.setQuery(query).limit(50).find().then (res => {
+      wx.hideLoading()
       let favorites = res.data.objects;
       console.log(favorites)
 
@@ -112,30 +117,32 @@ Page({
   },
 
 
-  getCurrentUser: function () {
-    wx.BaaS.auth.getCurrentUser().then(user => {
-      this.setData({ user });
-    })
-  },
+  // getCurrentUser: function () {
+  //   wx.BaaS.auth.getCurrentUser().then(user => {
+  //     this.setData({ user });
+  //   })
+  // },
 
   bindFilterChange: function (e) {
-    let index = e.detail.value;
+    console.log(e)
+    let index = e.detail.value; 
     let type = e.currentTarget.dataset.type;
     const filterIndex = `filter.${type}.index`
 
-    this.setData({ [filterIndex]: index });
+    this.setData({ [filterIndex]: index });  //  why using [] here
+    this.setData({show: "sort"})
     this.fetchBars();
   },
 
   toggleFilter: function (e) {
-    console.log(e);
     let type = e.currentTarget.dataset.type;
+    if(type=="sort") this.fetchBars()
+    console.log(type)
     this.setData({show: type})
-  },
+  }, 
 
   toggleSort: function (e) {
     let type = e.currentTarget.dataset.type;
-
     this.setData({sort: type})
     this.fetchBars();
   },
@@ -186,9 +193,13 @@ Page({
     let user = wx.getStorageSync('user')
     this.setData({user})
     this.getFont();
+    wx.showLoading();
+    this.fetchBars();
   },
 
   onShow: function () {
-    this.fetchBars();
+    let bars = this.data.bar
+    console.log(bars)
+   if(bars) this.fetchFavorites(bars);
   }
 })
